@@ -1,0 +1,36 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Visual Studio\\Repository\\kompas3d_monitor\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{1B1E77B5-6DDA-45B3-BECF-83C5A489A90F}|kompas3d_monitor\\kompas3d_monitor.csproj|d:\\visual studio\\repository\\kompas3d_monitor\\kompas3d_monitor\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{1B1E77B5-6DDA-45B3-BECF-83C5A489A90F}|kompas3d_monitor\\kompas3d_monitor.csproj|solutionrelative:kompas3d_monitor\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Form1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "DocumentMoniker": "D:\\Visual Studio\\Repository\\kompas3d_monitor\\kompas3d_monitor\\Form1.cs",
+              "RelativeDocumentMoniker": "kompas3d_monitor\\Form1.cs",
+              "ToolTip": "D:\\Visual Studio\\Repository\\kompas3d_monitor\\kompas3d_monitor\\Form1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "RelativeToolTip": "kompas3d_monitor\\Form1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-14T05:47:04.18Z",
+              "EditorCaption": " [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
