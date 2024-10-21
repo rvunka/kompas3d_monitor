@@ -12,9 +12,48 @@ namespace kompas3d_monitor
 {
     public partial class Form1 : Form
     {
+        private Builder _builder;
+        private Parameters _parameters = new Parameters();
+
+        private void BuildModel()
+        {
+
+        }
+
         public Form1()
         {
+
             InitializeComponent();
+        }
+
+        private void MainValidate(ParameterType parameterType, ref TextBox textBoxTemp)
+        {
+            try
+            {
+                double value;
+                if (double.TryParse(textBoxTemp.Text, out value))
+                {
+                    _parameters.AddValueToParameter(parameterType, value);
+                    textBoxTemp.BackColor = Color.White;
+                }
+                else
+                    throw new FormatException($"Строка '{textBoxTemp.Text}' не может быть преобразована в тип double.");
+            }
+            catch (Exception ex)
+            {
+                textBoxLog.Text += parameterType.ToString() + ": " + ex.Message + "\r\n";
+                textBoxTemp.BackColor = Color.Red;
+            }
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+           MainValidate(ParameterType.BorderHeight, ref textBox3);
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+            MainValidate(ParameterType.BorderThickness, ref textBox4);
         }
     }
 }
