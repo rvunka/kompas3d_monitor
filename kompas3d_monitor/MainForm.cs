@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace kompas3d_monitor
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         private Builder _builder;
         private Parameters _parameters = new Parameters();
@@ -20,7 +20,7 @@ namespace kompas3d_monitor
 
         }
 
-        public Form1()
+        public MainForm()
         {
 
             InitializeComponent();
@@ -54,6 +54,11 @@ namespace kompas3d_monitor
         private void textBox4_TextChanged(object sender, EventArgs e)
         {
             MainValidate(ParameterType.BorderThickness, ref textBox4);
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
