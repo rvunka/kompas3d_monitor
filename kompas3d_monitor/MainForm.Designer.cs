@@ -408,7 +408,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(402, 578);
+            this.button1.Location = new System.Drawing.Point(763, 580);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(204, 45);
             this.button1.TabIndex = 41;
@@ -421,7 +421,7 @@
             this.textBoxLog.Location = new System.Drawing.Point(6, 25);
             this.textBoxLog.Multiline = true;
             this.textBoxLog.Name = "textBoxLog";
-            this.textBoxLog.Size = new System.Drawing.Size(852, 90);
+            this.textBoxLog.Size = new System.Drawing.Size(939, 90);
             this.textBoxLog.TabIndex = 42;
             // 
             // groupBox1
@@ -504,9 +504,9 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.textBoxLog);
-            this.groupBox3.Location = new System.Drawing.Point(58, 445);
+            this.groupBox3.Location = new System.Drawing.Point(16, 445);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(866, 128);
+            this.groupBox3.Size = new System.Drawing.Size(951, 128);
             this.groupBox3.TabIndex = 45;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Окно состояния";
