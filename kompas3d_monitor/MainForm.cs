@@ -24,11 +24,6 @@ namespace kompas3d_monitor
             _builder = new Builder();
         }
 
-        private void BuildModel()
-        {
-
-        }
-
         private void UpdateTextBoxValues()
         {
             var parameterTypes = Enum.GetValues(typeof(ParameterType)).Cast<ParameterType>().ToArray();
@@ -149,6 +144,27 @@ namespace kompas3d_monitor
             UpdateTextBoxValues();
             MainValidate(ParameterType.ScreenWidth, ref textBox1);
             MainValidate(ParameterType.ScreenHeight, ref textBox2);
+        }
+
+        private void BuildModel()
+        {
+            try
+            {
+                // Строим модель монитора с использованием параметров
+                _builder.Build(_parameters);
+
+                // Выводим сообщение о завершении построения
+                textBoxLog.Text += "Модель монитора построена.\r\n";
+            }
+            catch (Exception ex)
+            {
+                textBoxLog.Text += "Ошибка при построении модели: " + ex.Message + "\r\n";
+            }
+        }
+
+        private void BuildButton_Click(object sender, EventArgs e)
+        {
+            BuildModel();
         }
     }
 }

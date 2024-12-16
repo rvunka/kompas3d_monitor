@@ -67,7 +67,7 @@
             this.label23 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.BuildButton = new System.Windows.Forms.Button();
             this.textBoxLog = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label27 = new System.Windows.Forms.Label();
@@ -456,15 +456,16 @@
             this.label25.TabIndex = 40;
             this.label25.Text = "50-200 мм";
             // 
-            // button1
+            // BuildButton
             // 
-            this.button1.Location = new System.Drawing.Point(509, 377);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(136, 29);
-            this.button1.TabIndex = 41;
-            this.button1.Text = "Построить";
-            this.button1.UseVisualStyleBackColor = true;
+            this.BuildButton.Location = new System.Drawing.Point(509, 377);
+            this.BuildButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.BuildButton.Name = "BuildButton";
+            this.BuildButton.Size = new System.Drawing.Size(136, 29);
+            this.BuildButton.TabIndex = 41;
+            this.BuildButton.Text = "Построить";
+            this.BuildButton.UseVisualStyleBackColor = true;
+            this.BuildButton.Click += new System.EventHandler(this.BuildButton_Click);
             // 
             // textBoxLog
             // 
@@ -579,7 +580,7 @@
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.BuildButton);
             this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "MainForm";
             this.Text = "MainForm";
@@ -634,7 +635,7 @@
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button BuildButton;
         private System.Windows.Forms.TextBox textBoxLog;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;

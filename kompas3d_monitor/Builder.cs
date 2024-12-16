@@ -5,6 +5,9 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Kompas6API5;
+using Kompas6Constants3D;
+using KompasAPI7;
 
 namespace kompas3d_monitor
 {
@@ -17,55 +20,77 @@ namespace kompas3d_monitor
             _wrapper = new Wrapper();
         }
 
-        public void Build(Parameters parameters) 
+        /// <summary>
+        /// Построение монитора целиком.
+        /// </summary>
+        /// <param name="parameters">Объект с параметрами монитора.</param>
+        public void Build(Parameters parameters)
         {
             BuildDisplay(parameters);
-            BuildFrame(parameters);
+            BuildBorder(parameters);
+            BuildJoint(parameters);
             BuildStand(parameters);
             BuildBase(parameters);
+            Console.WriteLine("Построение монитора завершено.");
         }
-        public void BuildDisplay(Parameters parameters) 
-        {
-            double width = parameters.ParametersDict[ParameterType.ScreenWidth].Value;
-            double height = parameters.ParametersDict[ParameterType.ScreenHeight].Value;
 
-            // Создаем прямоугольник для экрана
-            _wrapper.CreateBox(new Point(0, 0), new Point((int)width, (int)height));
+        /// <summary>
+        /// Построение экрана монитора.
+        /// </summary>
+        private void BuildDisplay(Parameters parameters)
+        {
+            Console.WriteLine("Построение экрана...");
+            _wrapper.CreateBox(0, 0, parameters.ParametersDict[ParameterType.ScreenWidth].Value, parameters.ParametersDict[ParameterType.ScreenHeight].Value, parameters.ParametersDict[ParameterType.ScreenDepth].Value);
         }
-        public void BuildFrame(Parameters parameters)
+
+        /// <summary>
+        /// Построение рамки монитора.
+        /// </summary>
+        private void BuildBorder(Parameters parameters)
         {
-            double width = parameters.ParametersDict[ParameterType.ScreenWidth].Value;
-            double height = parameters.ParametersDict[ParameterType.ScreenHeight].Value;
-            double borderHeight = parameters.ParametersDict[ParameterType.BorderHeight].Value;
-            double borderThickness = parameters.ParametersDict[ParameterType.BorderThickness].Value;
+            Console.WriteLine("Построение рамки...");
+            double outerWidth = parameters.ParametersDict[ParameterType.ScreenWidth].Value + 2 * parameters.ParametersDict[ParameterType.BorderThickness].Value;
+            double outerHeight = parameters.ParametersDict[ParameterType.ScreenHeight].Value + 2 * parameters.ParametersDict[ParameterType.BorderHeight].Value;
 
-            // Рамка будет иметь толщину и высоту снаружи экрана
-            double frameWidth = width + 2 * borderThickness;
-            double frameHeight = height + 2 * borderThickness;
+            // Внешний прямоугольник рамки
+            _wrapper.CreateBox(0, 0, outerWidth, outerHeight, parameters.ParametersDict[ParameterType.BorderThickness].Value);
 
-            // Создаем коробку для рамки
-            _wrapper.CreateBox(new Point(0, 0), new Point((int)frameWidth, (int)frameHeight));
-            // Создаем объекты для экструзии рамки по высоте
-            _wrapper.CreateBox(new Point(0, 0), new Point((int)frameWidth, (int)(borderHeight)));
+            // Вырез для экрана (внутренняя часть рамки)
+            _wrapper.CreateBox(parameters.ParametersDict[ParameterType.BorderThickness].Value, parameters.ParametersDict[ParameterType.BorderHeight].Value,
+                parameters.ParametersDict[ParameterType.ScreenWidth].Value, parameters.ParametersDict[ParameterType.ScreenHeight].Value, parameters.ParametersDict[ParameterType.BorderThickness].Value);
         }
-        public void BuildJoint(Parameters parameters) { }
-        public void BuildStand(Parameters parameters) 
-        {
-            double standHeight = parameters.ParametersDict[ParameterType.StandHeight].Value;
-            double standWidth = parameters.ParametersDict[ParameterType.StandWidth].Value;
-            double standThickness = parameters.ParametersDict[ParameterType.StandThickness].Value;
 
-            // Создаем стойку
-            _wrapper.CreateBox(new Point(0, 0), new Point((int)standWidth, (int)standHeight));
+        /// <summary>
+        /// Построение соединительного рычага.
+        /// </summary>
+        private void BuildJoint(Parameters parameters)
+        {
+            Console.WriteLine("Построение соединения...");
+            double x = parameters.ParametersDict[ParameterType.ScreenWidth].Value / 2 - parameters.ParametersDict[ParameterType.JointLength].Value / 2;
+            double y = -parameters.ParametersDict[ParameterType.BorderHeight].Value - parameters.ParametersDict[ParameterType.JointHeight].Value;
+            _wrapper.CreateBox(x, y, parameters.ParametersDict[ParameterType.JointLength].Value, parameters.ParametersDict[ParameterType.JointHeight].Value, parameters.ParametersDict[ParameterType.BorderThickness].Value);
         }
-        public void BuildBase(Parameters parameters) 
-        {
-            double baseHeight = parameters.ParametersDict[ParameterType.BaseHeight].Value;
-            double baseWidth = parameters.ParametersDict[ParameterType.BaseWidth].Value;
-            double baseThickness = parameters.ParametersDict[ParameterType.BaseThickness].Value;
 
-            // Создаем подставку
-            _wrapper.CreateBox(new Point(0, 0), new Point((int)baseWidth, (int)baseHeight));
+        /// <summary>
+        /// Построение стойки монитора.
+        /// </summary>
+        private void BuildStand(Parameters parameters)
+        {
+            Console.WriteLine("Построение стойки...");
+            double x = parameters.ParametersDict[ParameterType.ScreenWidth].Value / 2 - parameters.ParametersDict[ParameterType.StandWidth].Value / 2;
+            double y = -parameters.ParametersDict[ParameterType.BorderHeight].Value - parameters.ParametersDict[ParameterType.JointHeight].Value - parameters.ParametersDict[ParameterType.StandHeight].Value;
+            _wrapper.CreateBox(x, y, parameters.ParametersDict[ParameterType.StandWidth].Value, parameters.ParametersDict[ParameterType.StandHeight].Value, parameters.ParametersDict[ParameterType.StandThickness].Value);
+        }
+
+        /// <summary>
+        /// Построение подставки монитора.
+        /// </summary>
+        private void BuildBase(Parameters parameters)
+        {
+            Console.WriteLine("Построение подставки...");
+            double x = parameters.ParametersDict[ParameterType.ScreenWidth].Value / 2 - parameters.ParametersDict[ParameterType.BaseWidth].Value / 2;
+            double y = -parameters.ParametersDict[ParameterType.BorderHeight].Value - parameters.ParametersDict[ParameterType.JointHeight].Value - parameters.ParametersDict[ParameterType.StandHeight].Value - parameters.ParametersDict[ParameterType.BaseHeight].Value;
+            _wrapper.CreateBox(x, y, parameters.ParametersDict[ParameterType.BaseWidth].Value, parameters.ParametersDict[ParameterType.BaseHeight].Value, parameters.ParametersDict[ParameterType.BaseThickness].Value);
         }
 
     }
