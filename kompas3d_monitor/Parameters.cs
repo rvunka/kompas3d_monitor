@@ -21,8 +21,8 @@ namespace kompas3d_monitor
         public Parameters()
         {
             _aspectRatio = AspectRatio.Custom;
-            _parametersDict.Add(ParameterType.ScreenWidth, new Parameter(0, 0, 0));
-            _parametersDict.Add(ParameterType.ScreenHeight, new Parameter(0, 0, 0));
+            _parametersDict.Add(ParameterType.ScreenWidth, new Parameter(50, 1000, 400));
+            _parametersDict.Add(ParameterType.ScreenHeight, new Parameter(50, 1000, 400));
             _parametersDict.Add(ParameterType.BorderHeight, new Parameter(5, 30, 5));
             _parametersDict.Add(ParameterType.BorderThickness, new Parameter(5, 20, 5));
             _parametersDict.Add(ParameterType.ScreenDepth, new Parameter(0, 10, 0));
@@ -34,6 +34,11 @@ namespace kompas3d_monitor
             _parametersDict.Add(ParameterType.BaseThickness, new Parameter(10, 50, 10));
             _parametersDict.Add(ParameterType.JointHeight, new Parameter(15, 40, 15));
             _parametersDict.Add(ParameterType.JointLength, new Parameter(50, 200, 50));
+        }
+
+        public Dictionary<ParameterType, Parameter> ParametersDict
+        {
+            get { return _parametersDict; }
         }
 
         public void AddValueToParameter(ParameterType parameterType, double value)
