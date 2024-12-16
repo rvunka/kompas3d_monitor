@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Kompas6API5;
@@ -28,25 +29,35 @@ namespace kompas3d_monitor
         public void OpenFile(string fileName) { }
         public void OpenCAD() 
         {
-            if (_kompas == null)
+            try
             {
-                try
-                {
-                    // Подключение к уже запущенному Компас-3D
-                    Type kompasType = Type.GetTypeFromProgID("KOMPAS.Application.5");
-                    _kompas = (KompasObject)Activator.CreateInstance(kompasType);
-
-                    if (_kompas != null)
-                    {
-                        _kompas.Visible = true; // Делаем Компас-3D видимым
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Ошибка подключения к Компас-3D: {ex.Message}");
-                }
+                // Попытка подключения к существующему процессу Kompas3D
+                this._kompas = (KompasObject)Marshal.GetActiveObject("KOMPAS.Application.5");
+                Console.WriteLine("Kompas3D уже запущен.");
             }
+            catch
+            {
+                // Если процесс не найден, создаем новый экземпляр
+                Type kompasType = Type.GetTypeFromProgID("KOMPAS.Application.5");
+                this._kompas = (KompasObject)Activator.CreateInstance(kompasType);
+                Console.WriteLine("Запущен новый экземпляр Kompas3D.");
+            }
+
+            if (this._kompas != null)
+            {
+                // Делаем окно приложения видимым
+                this._kompas.Visible = true;
+                this._kompas.ActivateControllerAPI();
+                Console.WriteLine("Kompas3D успешно запущен и доступен.");
+            }
+            else
+            {
+                Console.WriteLine("Не удалось запустить Kompas3D.");
+            }
+
+            Console.ReadLine();
         }
+
 
     }
 }

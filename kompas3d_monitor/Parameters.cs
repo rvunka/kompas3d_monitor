@@ -48,16 +48,19 @@ namespace kompas3d_monitor
                 _parametersDict[parameterType].Value = value;
                 _parametersDict[parameterType].Validate();
 
-                // Проверка связи параметров ScreenWidth и ScreenHeight
-                if (parameterType == ParameterType.ScreenWidth)
+                if (_aspectRatio != AspectRatio.Custom)
                 {
-                    double heightValue = value * GetAspectRatioFactor(_aspectRatio);
-                    _parametersDict[ParameterType.ScreenHeight].Value = heightValue;
-                }
-                else if (parameterType == ParameterType.ScreenHeight)
-                {
-                    double widthValue = value / GetAspectRatioFactor(_aspectRatio);
-                    _parametersDict[ParameterType.ScreenWidth].Value = widthValue;
+                    // Проверка связи параметров ScreenWidth и ScreenHeight
+                    if (parameterType == ParameterType.ScreenWidth)
+                    {
+                        double heightValue = value * GetAspectRatioFactor(_aspectRatio);
+                        _parametersDict[ParameterType.ScreenHeight].Value = heightValue;
+                    }
+                    else if (parameterType == ParameterType.ScreenHeight)
+                    {
+                        double widthValue = value / GetAspectRatioFactor(_aspectRatio);
+                        _parametersDict[ParameterType.ScreenWidth].Value = widthValue;
+                    }
                 }
             }
             else
@@ -69,9 +72,12 @@ namespace kompas3d_monitor
         public void SetAspectRatio(AspectRatio aspectRatio)
         {
             _aspectRatio = aspectRatio;
-            // Пересчитываем значение ScreenHeight на основе нового соотношения сторон
-            double screenWidth = _parametersDict[ParameterType.ScreenWidth].Value;
-            _parametersDict[ParameterType.ScreenHeight].Value = screenWidth * GetAspectRatioFactor(_aspectRatio);
+
+            if (_aspectRatio != AspectRatio.Custom)
+            {
+                double screenWidth = _parametersDict[ParameterType.ScreenWidth].Value;
+                _parametersDict[ParameterType.ScreenHeight].Value = screenWidth * GetAspectRatioFactor(_aspectRatio);
+            }
         }
 
         private double GetAspectRatioFactor(AspectRatio aspectRatio)
