@@ -80,57 +80,62 @@ namespace kompas3d_monitor
 
         private void textBox3_Leave(object sender, EventArgs e)
         {
-            MainValidate(ParameterType.BorderHeight, ref textBox3);
+            MainValidate(ParameterType.ScreenThickness, ref textBox3);
         }
 
         private void textBox4_Leave(object sender, EventArgs e)
         {
-            MainValidate(ParameterType.BorderThickness, ref textBox4);
+            MainValidate(ParameterType.BorderHeight, ref textBox4);
         }
 
         private void textBox5_Leave(object sender, EventArgs e)
         {
-            MainValidate(ParameterType.ScreenDepth, ref textBox5);
+            MainValidate(ParameterType.BorderWidth, ref textBox5);
         }
 
         private void textBox6_Leave(object sender, EventArgs e)
         {
-            MainValidate(ParameterType.StandHeight, ref textBox6);
+            MainValidate(ParameterType.BorderDepth, ref textBox6);
         }
 
         private void textBox7_Leave(object sender, EventArgs e)
         {
-            MainValidate(ParameterType.StandWidth, ref textBox7);
+            MainValidate(ParameterType.StandHeight, ref textBox7);
         }
 
         private void textBox8_Leave(object sender, EventArgs e)
         {
-            MainValidate(ParameterType.StandThickness, ref textBox8);
+            MainValidate(ParameterType.StandWidth, ref textBox8);
         }
 
         private void textBox9_Leave(object sender, EventArgs e)
         {
-            MainValidate(ParameterType.BaseHeight, ref textBox9);
+            MainValidate(ParameterType.StandThickness, ref textBox9);
         }
 
         private void textBox10_Leave(object sender, EventArgs e)
         {
-            MainValidate(ParameterType.BaseWidth, ref textBox10);
+            MainValidate(ParameterType.BaseHeight, ref textBox10);
         }
 
         private void textBox11_Leave(object sender, EventArgs e)
         {
-            MainValidate(ParameterType.BaseThickness, ref textBox11);
+            MainValidate(ParameterType.BaseWidth, ref textBox11);
         }
 
         private void textBox12_Leave(object sender, EventArgs e)
         {
-            MainValidate(ParameterType.JointHeight, ref textBox12);
+            MainValidate(ParameterType.BaseThickness, ref textBox12);
         }
 
         private void textBox13_Leave(object sender, EventArgs e)
         {
-            MainValidate(ParameterType.JointLength, ref textBox13); 
+            MainValidate(ParameterType.JointHeight, ref textBox13);
+        }
+
+        private void textBox14_Leave(object sender, EventArgs e)
+        {
+            MainValidate(ParameterType.JointWidth, ref textBox14); 
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -166,5 +171,6 @@ namespace kompas3d_monitor
         {
             BuildModel();
         }
+
     }
 }

@@ -32,7 +32,7 @@ namespace kompas3d_monitor
             var sketch = (ksEntity)part.NewEntity((short)Obj3dType.o3d_sketch);
 
             var definition = (ksSketchDefinition)sketch.GetDefinition();
-            definition.SetPlane(part.GetDefaultEntity((short)Obj3dType.o3d_planeXOY));
+            definition.SetPlane(part.GetDefaultEntity((short)Obj3dType.o3d_planeXOZ));
             sketch.Create();
 
             var sketchEdit = (ksDocument2D)definition.BeginEdit();
@@ -58,14 +58,14 @@ namespace kompas3d_monitor
             var sketch = (ksEntity)part.NewEntity((short)Obj3dType.o3d_sketch);
             var definition = (ksSketchDefinition)sketch.GetDefinition();
 
-            // Устанавливаем плоскость для эскиза (XOY)
-            definition.SetPlane(part.GetDefaultEntity((short)Obj3dType.o3d_planeXOY));
+            // Устанавливаем плоскость для эскиза (XOZ)
+            definition.SetPlane(part.GetDefaultEntity((short)Obj3dType.o3d_planeXOZ));
             sketch.Create();
 
-            // Создаем структуру параметров для прямоугольника
+            // Смещаем прямоугольник в центр относительно его ширины и высоты
             var rectParam = (RectangleParam)_kompas.GetParamStruct((short)StructType2DEnum.ko_RectangleParam);
-            rectParam.x = x;
-            rectParam.y = y;
+            rectParam.x = x - width / 2;
+            rectParam.y = y - height / 2;
             rectParam.width = width;
             rectParam.height = height;
             rectParam.style = 1; // Сплошная линия
@@ -75,15 +75,10 @@ namespace kompas3d_monitor
             sketchEdit.ksRectangle(rectParam, 0); // 0 – строить от угла
             definition.EndEdit();
 
-            // Выдавливаем прямоугольник для создания 3D-бокса
-            var extrusion = (ksEntity)part.NewEntity((short)Obj3dType.o3d_bossExtrusion);
-            var extrusionDef = (ksBossExtrusionDefinition)extrusion.GetDefinition();
-            extrusionDef.directionType = (short)Direction_Type.dtNormal;
-            extrusionDef.SetSketch(sketch);
-            extrusionDef.SetSideParam(true, (short)End_Type.etBlind, depth, 0, false);
-            extrusion.Create();
+            // Выдавливаем эскиз с помощью универсального метода Extrusion
+            Extrusion(sketch, depth);  // true = выдавливание вниз
 
-            Console.WriteLine($"Бокс построен: ширина {width}, высота {height}, глубина {depth}.");
+            Console.WriteLine($"Коробка построена: ширина {width}, высота {height}, глубина {depth}.");
         }
 
         public ksEntity CreateSketch(ksPart part, short planeType)
@@ -96,7 +91,7 @@ namespace kompas3d_monitor
         }
 
         // Метод выдавливания эскиза
-        public void Extrusion(ksEntity sketch, double depth)
+        public void Extrusion(ksEntity sketch, double depth, bool reverse = false)
         {
             if (_doc3D == null) return;
 
@@ -105,10 +100,26 @@ namespace kompas3d_monitor
             var extrusionDef = (ksBossExtrusionDefinition)extrusion.GetDefinition();
 
             extrusionDef.SetSketch(sketch);
-            extrusionDef.directionType = (short)Direction_Type.dtNormal;
+            extrusionDef.directionType = (short)(reverse ? Direction_Type.dtReverse : Direction_Type.dtNormal);
             extrusionDef.SetSideParam(true, (short)End_Type.etBlind, depth, 0, false);
             extrusion.Create();
-            Console.WriteLine($"Эскиз выдавлен на глубину {depth}.");
+            Console.WriteLine($"Эскиз выдавлен на глубину {depth}. Направление: {(reverse ? "Вниз" : "Вверх")}");
+        }
+
+        public void CutExtrusion(ksEntity sketch, double depth, bool reverse = false)
+        {
+            if (_doc3D == null) return;
+
+            var part = (ksPart)_doc3D.GetPart((short)Part_Type.pTop_Part);
+            var cutExtrusion = (ksEntity)part.NewEntity((short)Obj3dType.o3d_cutExtrusion);
+            var cutDefinition = (ksCutExtrusionDefinition)cutExtrusion.GetDefinition();
+
+            cutDefinition.SetSketch(sketch);
+            cutDefinition.directionType = (short)(reverse ? Direction_Type.dtReverse : Direction_Type.dtNormal);
+            cutDefinition.SetSideParam(true, (short)End_Type.etBlind, depth, 0, false);
+            cutExtrusion.Create();
+
+            Console.WriteLine($"Вырез выполнен на глубину {depth}. Направление: {(reverse ? "Вниз" : "Вверх")}");
         }
 
         // Метод для сохранения файла
@@ -165,5 +176,21 @@ namespace kompas3d_monitor
             Console.ReadLine();
         }
 
+        public ksPart GetCurrentPart()
+        {
+            return (ksPart)_doc3D.GetPart((short)Part_Type.pTop_Part);
+        }
+
+        public RectangleParam CreateRectangleParam(double x, double y, double width, double height)
+        {
+            var rectParam = (RectangleParam)_kompas.GetParamStruct((short)StructType2DEnum.ko_RectangleParam);
+            rectParam.x = x;
+            rectParam.y = y;
+            rectParam.width = width;
+            rectParam.height = height;
+            rectParam.style = 1; 
+            return rectParam;
+        }
     }
+
 }

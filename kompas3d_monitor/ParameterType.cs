@@ -10,9 +10,10 @@ namespace kompas3d_monitor
     {
         ScreenWidth,
         ScreenHeight,
+        ScreenThickness,
         BorderHeight,
-        BorderThickness,
-        ScreenDepth,
+        BorderWidth,
+        BorderDepth,
         StandHeight,
         StandWidth,
         StandThickness,
@@ -20,6 +21,6 @@ namespace kompas3d_monitor
         BaseWidth,
         BaseThickness,
         JointHeight,
-        JointLength
+        JointWidth
     }
 }

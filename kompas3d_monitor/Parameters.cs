@@ -21,19 +21,20 @@ namespace kompas3d_monitor
         public Parameters()
         {
             _aspectRatio = AspectRatio.Custom;
-            _parametersDict.Add(ParameterType.ScreenWidth, new Parameter(50, 1000, 400));
-            _parametersDict.Add(ParameterType.ScreenHeight, new Parameter(50, 1000, 400));
-            _parametersDict.Add(ParameterType.BorderHeight, new Parameter(5, 30, 5));
-            _parametersDict.Add(ParameterType.BorderThickness, new Parameter(5, 20, 5));
-            _parametersDict.Add(ParameterType.ScreenDepth, new Parameter(0, 10, 0));
-            _parametersDict.Add(ParameterType.StandHeight, new Parameter(50, 200, 50));
-            _parametersDict.Add(ParameterType.StandWidth, new Parameter(30, 100, 30));
-            _parametersDict.Add(ParameterType.StandThickness, new Parameter(10, 50, 10));
-            _parametersDict.Add(ParameterType.BaseHeight, new Parameter(50, 150, 50));
-            _parametersDict.Add(ParameterType.BaseWidth, new Parameter(150, 400, 150));
-            _parametersDict.Add(ParameterType.BaseThickness, new Parameter(10, 50, 10));
-            _parametersDict.Add(ParameterType.JointHeight, new Parameter(15, 40, 15));
-            _parametersDict.Add(ParameterType.JointLength, new Parameter(50, 200, 50));
+            _parametersDict.Add(ParameterType.ScreenWidth, new Parameter(50, 1000, 200));
+            _parametersDict.Add(ParameterType.ScreenHeight, new Parameter(50, 1000, 112));
+            _parametersDict.Add(ParameterType.ScreenThickness, new Parameter(5, 30, 10));
+            _parametersDict.Add(ParameterType.BorderHeight, new Parameter(5, 30, 10));
+            _parametersDict.Add(ParameterType.BorderWidth, new Parameter(5, 30, 10));
+            _parametersDict.Add(ParameterType.BorderDepth, new Parameter(0, 20, 5));
+            _parametersDict.Add(ParameterType.StandHeight, new Parameter(50, 200, 150));
+            _parametersDict.Add(ParameterType.StandWidth, new Parameter(30, 100, 80));
+            _parametersDict.Add(ParameterType.StandThickness, new Parameter(10, 50, 15));
+            _parametersDict.Add(ParameterType.BaseHeight, new Parameter(20, 150, 20));
+            _parametersDict.Add(ParameterType.BaseWidth, new Parameter(150, 400, 250));
+            _parametersDict.Add(ParameterType.BaseThickness, new Parameter(150, 400, 250));
+            _parametersDict.Add(ParameterType.JointHeight, new Parameter(20, 200, 20));
+            _parametersDict.Add(ParameterType.JointWidth, new Parameter(20, 200, 60));
         }
 
         public Dictionary<ParameterType, Parameter> ParametersDict
