@@ -27,8 +27,8 @@ namespace kompas3d_monitor
         /// <param name="parameters">Объект с параметрами монитора.</param>
         public void Build(Parameters parameters)
         {
-            BuildDisplay(parameters);
-            BuildBorder(parameters);
+            //BuildDisplay(parameters);
+            //BuildBorder(parameters);
             //BuildJoint(parameters);
             BuildStand(parameters);
             //BuildBase(parameters);
@@ -40,13 +40,14 @@ namespace kompas3d_monitor
         /// </summary>
         private void BuildDisplay(Parameters parameters)
         {
-            Console.WriteLine("Построение экрана...");
             double L = parameters.ParametersDict[ParameterType.ScreenWidth].Value;
             double H = parameters.ParametersDict[ParameterType.ScreenHeight].Value;
             double g = parameters.ParametersDict[ParameterType.ScreenThickness].Value;
 
-            // Построение внешнего прямоугольника (экран) в -Y
-            _wrapper.CreateBox(0, 0, L, H, g); 
+            double x = -L / 2;
+            double y = -H / 2;
+
+            _wrapper.CreateBox(x, y, L, H, g);
         }
 
         /// <summary>
@@ -54,8 +55,6 @@ namespace kompas3d_monitor
         /// </summary>
         private void BuildBorder(Parameters parameters)
         {
-            Console.WriteLine("Построение рамки...");
-
             double L = parameters.ParametersDict[ParameterType.ScreenWidth].Value;
             double H = parameters.ParametersDict[ParameterType.ScreenHeight].Value;
             double bW = parameters.ParametersDict[ParameterType.BorderWidth].Value;
@@ -109,7 +108,6 @@ namespace kompas3d_monitor
         /// </summary>
         private void BuildJoint(Parameters parameters)
         {
-            Console.WriteLine("Построение соединения...");
             double j = parameters.ParametersDict[ParameterType.JointWidth].Value;
             double f = parameters.ParametersDict[ParameterType.StandThickness].Value;
             double b = parameters.ParametersDict[ParameterType.BorderHeight].Value;
@@ -136,28 +134,7 @@ namespace kompas3d_monitor
             double x = -standWidth / 2;
             double y = -standThickness / 2;
 
-            // Смещение вверх по Z на высоту подставки
-            double z = baseHeight;
-
-            // Создаем эскиз на плоскости XOY и выдавливаем вверх по Z
-            var part = _wrapper.GetCurrentPart();
-            var sketch = _wrapper.CreateSketch(part, (short)Obj3dType.o3d_planeXOY);
-            var definition = (ksSketchDefinition)sketch.GetDefinition();
-            sketch.Create();
-
-            var sketchEdit = (ksDocument2D)definition.BeginEdit();
-
-            // Рисуем прямоугольник стойки
-            var rectParam = _wrapper.CreateRectangleParam(x, y, standWidth, standThickness);
-            sketchEdit.ksRectangle(rectParam, 0);  // Прямоугольник строится от центра
-
-            definition.EndEdit();
-            sketch.Update();
-
-            // Выдавливаем стойку вверх (по Z)
-            _wrapper.Extrusion(sketch, standHeight);  // Стойка тянется вверх
-
-            Console.WriteLine("Стойка (ножка) построена.");
+            _wrapper.CreateBox(x, y, standWidth, -standHeight, standThickness);
         }
 
         /// <summary>
@@ -168,16 +145,13 @@ namespace kompas3d_monitor
             double D = parameters.ParametersDict[ParameterType.BaseWidth].Value;
             double s = parameters.ParametersDict[ParameterType.BaseHeight].Value;
             double z = parameters.ParametersDict[ParameterType.BaseThickness].Value;
-            double p = parameters.ParametersDict[ParameterType.StandHeight].Value;
-            double g = parameters.ParametersDict[ParameterType.ScreenThickness].Value;
 
-            // Позиционирование подставки ниже стойки
             double x = -D / 2;
-            double y = -s / 2;
-            double offsetZ = -p - z - g;  // Подставка располагается ниже стойки и экрана
+            double y = -z / 2;
 
-            _wrapper.CreateBox(x, y, D, s, z);
-            Console.WriteLine("Подставка построена.");
+            _wrapper.CreateBox(x, y, D, z, s, (short)Obj3dType.o3d_planeXOY);
+
+            Console.WriteLine("Подставка построена по центру.");
         }
 
     }

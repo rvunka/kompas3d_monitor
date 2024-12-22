@@ -43,7 +43,7 @@ namespace kompas3d_monitor
         }
 
         // Метод создания прямоугольника (в виде бокса)
-        public void CreateBox(double x, double y, double width, double height, double depth)
+        public void CreateBox(double x, double y, double width, double height, double depth, short planeType = (short)Obj3dType.o3d_planeXOZ)
         {
             if (_doc3D == null)
             {
@@ -58,27 +58,27 @@ namespace kompas3d_monitor
             var sketch = (ksEntity)part.NewEntity((short)Obj3dType.o3d_sketch);
             var definition = (ksSketchDefinition)sketch.GetDefinition();
 
-            // Устанавливаем плоскость для эскиза (XOZ)
-            definition.SetPlane(part.GetDefaultEntity((short)Obj3dType.o3d_planeXOZ));
+            // Устанавливаем плоскость для эскиза (XOZ, YOZ или XOY)
+            definition.SetPlane(part.GetDefaultEntity(planeType));
             sketch.Create();
 
-            // Смещаем прямоугольник в центр относительно его ширины и высоты
+            // Задаем параметры прямоугольника
             var rectParam = (RectangleParam)_kompas.GetParamStruct((short)StructType2DEnum.ko_RectangleParam);
-            rectParam.x = x - width / 2;
-            rectParam.y = y - height / 2;
+            rectParam.x = x;
+            rectParam.y = y;
             rectParam.width = width;
             rectParam.height = height;
-            rectParam.style = 1; // Сплошная линия
+            rectParam.style = 1;  // Сплошная линия
 
             // Редактируем эскиз и строим прямоугольник
             var sketchEdit = (ksDocument2D)definition.BeginEdit();
-            sketchEdit.ksRectangle(rectParam, 0); // 0 – строить от угла
+            sketchEdit.ksRectangle(rectParam, 0);  // 0 – строить от угла
             definition.EndEdit();
 
-            // Выдавливаем эскиз с помощью универсального метода Extrusion
-            Extrusion(sketch, depth);  // true = выдавливание вниз
+            // Выдавливаем эскиз
+            Extrusion(sketch, depth);
 
-            Console.WriteLine($"Коробка построена: ширина {width}, высота {height}, глубина {depth}.");
+            Console.WriteLine($"Коробка построена: ширина {width}, высота {height}, глубина {depth} на плоскости {(Obj3dType)planeType}.");
         }
 
         public ksEntity CreateSketch(ksPart part, short planeType)

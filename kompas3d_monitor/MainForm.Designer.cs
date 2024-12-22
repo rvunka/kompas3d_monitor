@@ -417,7 +417,7 @@
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(59, 13);
             this.label21.TabIndex = 36;
-            this.label21.Text = "20-150 мм";
+            this.label21.Text = "10-150 мм";
             // 
             // label22
             // 
@@ -425,9 +425,9 @@
             this.label22.Location = new System.Drawing.Point(229, 134);
             this.label22.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(65, 13);
+            this.label22.Size = new System.Drawing.Size(59, 13);
             this.label22.TabIndex = 37;
-            this.label22.Text = "150-400 мм";
+            this.label22.Text = "50-400 мм";
             // 
             // label23
             // 
@@ -435,9 +435,9 @@
             this.label23.Location = new System.Drawing.Point(229, 158);
             this.label23.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(65, 13);
+            this.label23.Size = new System.Drawing.Size(59, 13);
             this.label23.TabIndex = 38;
-            this.label23.Text = "150-400 мм";
+            this.label23.Text = "50-400 мм";
             // 
             // label24
             // 

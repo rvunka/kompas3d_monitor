@@ -27,12 +27,12 @@ namespace kompas3d_monitor
             _parametersDict.Add(ParameterType.BorderHeight, new Parameter(5, 30, 10));
             _parametersDict.Add(ParameterType.BorderWidth, new Parameter(5, 30, 10));
             _parametersDict.Add(ParameterType.BorderDepth, new Parameter(0, 20, 5));
-            _parametersDict.Add(ParameterType.StandHeight, new Parameter(50, 200, 150));
-            _parametersDict.Add(ParameterType.StandWidth, new Parameter(30, 100, 80));
-            _parametersDict.Add(ParameterType.StandThickness, new Parameter(10, 50, 15));
-            _parametersDict.Add(ParameterType.BaseHeight, new Parameter(20, 150, 20));
-            _parametersDict.Add(ParameterType.BaseWidth, new Parameter(150, 400, 250));
-            _parametersDict.Add(ParameterType.BaseThickness, new Parameter(150, 400, 250));
+            _parametersDict.Add(ParameterType.StandHeight, new Parameter(50, 200, 125));
+            _parametersDict.Add(ParameterType.StandWidth, new Parameter(30, 100, 40));
+            _parametersDict.Add(ParameterType.StandThickness, new Parameter(10, 50, 10));
+            _parametersDict.Add(ParameterType.BaseHeight, new Parameter(10, 150, 10));
+            _parametersDict.Add(ParameterType.BaseWidth, new Parameter(50, 400, 75));
+            _parametersDict.Add(ParameterType.BaseThickness, new Parameter(50, 400, 75));
             _parametersDict.Add(ParameterType.JointHeight, new Parameter(20, 200, 20));
             _parametersDict.Add(ParameterType.JointWidth, new Parameter(20, 200, 60));
         }
