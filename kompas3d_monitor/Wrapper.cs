@@ -43,7 +43,7 @@ namespace kompas3d_monitor
         }
 
         // Метод создания прямоугольника (в виде бокса)
-        public void CreateBox(double x, double y, double width, double height, double depth, short planeType = (short)Obj3dType.o3d_planeXOZ)
+        public void CreateBox(double offset, double x, double y, double width, double height, double depth, short planeType = (short)Obj3dType.o3d_planeXOZ)
         {
             if (_doc3D == null)
             {
@@ -75,8 +75,16 @@ namespace kompas3d_monitor
             sketchEdit.ksRectangle(rectParam, 0);  // 0 – строить от угла
             definition.EndEdit();
 
-            // Выдавливаем эскиз
-            Extrusion(sketch, depth);
+            if (offset != 0)
+            {
+                definition.SetPlane(CreateOffsetPlane(part, planeType, offset));
+                sketch.Update();
+                Extrusion(sketch, depth);
+            }
+            else
+            {
+                Extrusion(sketch, depth);
+            }
 
             Console.WriteLine($"Коробка построена: ширина {width}, высота {height}, глубина {depth} на плоскости {(Obj3dType)planeType}.");
         }
@@ -91,19 +99,28 @@ namespace kompas3d_monitor
         }
 
         // Метод выдавливания эскиза
-        public void Extrusion(ksEntity sketch, double depth, bool reverse = false)
+        public void Extrusion(ksEntity sketch, double depth)
         {
-            if (_doc3D == null) return;
+            if (_doc3D == null)
+            {
+                Console.WriteLine("Документ не создан.");
+                return;
+            }
 
             var part = (ksPart)_doc3D.GetPart((short)Part_Type.pTop_Part);
             var extrusion = (ksEntity)part.NewEntity((short)Obj3dType.o3d_bossExtrusion);
             var extrusionDef = (ksBossExtrusionDefinition)extrusion.GetDefinition();
 
+            // Привязываем эскиз к выдавливанию
             extrusionDef.SetSketch(sketch);
-            extrusionDef.directionType = (short)(reverse ? Direction_Type.dtReverse : Direction_Type.dtNormal);
+
+            // Устанавливаем направление всегда вверх (dtNormal)
+            extrusionDef.directionType = (short)Direction_Type.dtNormal;
+
+            // Выдавливаем на заданную глубину
             extrusionDef.SetSideParam(true, (short)End_Type.etBlind, depth, 0, false);
             extrusion.Create();
-            Console.WriteLine($"Эскиз выдавлен на глубину {depth}. Направление: {(reverse ? "Вниз" : "Вверх")}");
+
         }
 
         public void CutExtrusion(ksEntity sketch, double depth, bool reverse = false)
@@ -120,6 +137,20 @@ namespace kompas3d_monitor
             cutExtrusion.Create();
 
             Console.WriteLine($"Вырез выполнен на глубину {depth}. Направление: {(reverse ? "Вниз" : "Вверх")}");
+        }
+
+        private ksEntity CreateOffsetPlane(ksPart part, short basePlane, double offset)
+        {
+            var offsetPlane = (ksEntity)part.NewEntity((short)Obj3dType.o3d_planeOffset);
+            var planeDef = (ksPlaneOffsetDefinition)offsetPlane.GetDefinition();
+
+            planeDef.SetPlane(part.GetDefaultEntity(basePlane));  // Базовая плоскость
+            planeDef.offset = offset;
+            planeDef.direction = false;  // Смещаем в обратную сторону
+            offsetPlane.Create();
+
+            Console.WriteLine($"Смещенная плоскость создана на расстоянии {offset}.");
+            return offsetPlane;
         }
 
         // Метод для сохранения файла
