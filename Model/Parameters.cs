@@ -19,9 +19,9 @@ namespace kompas3d_monitor
 
         public Parameters()
         {
-            _aspectRatio = AspectRatio.SixteenNine;
+            _aspectRatio = AspectRatio.Custom;
             _parametersDict.Add(ParameterType.ScreenWidth, new Parameter(50, 1000, 200));
-            _parametersDict.Add(ParameterType.ScreenHeight, new Parameter(50, 1000, 112));
+            _parametersDict.Add(ParameterType.ScreenHeight, new Parameter(50, 1000, 200));
             _parametersDict.Add(ParameterType.ScreenThickness, new Parameter(5, 30, 10));
             _parametersDict.Add(ParameterType.BorderHeight, new Parameter(5, 30, 10));
             _parametersDict.Add(ParameterType.BorderWidth, new Parameter(5, 30, 10));

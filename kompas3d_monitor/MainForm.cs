@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Perfomance;
 
 namespace kompas3d_monitor
 {
@@ -14,14 +15,27 @@ namespace kompas3d_monitor
     {
         private Builder _builder;
         private Parameters _parameters = new Parameters();
-        
+
+        private Dictionary<AspectRatio, string> aspectRatioDisplayValues = new Dictionary<AspectRatio, string>
+        {
+            { AspectRatio.Custom, "Custom" },
+            { AspectRatio.FourThree, "4_3" },
+            { AspectRatio.SixteenTen, "16_10" },
+            { AspectRatio.SixteenNine, "16_9" },
+            { AspectRatio.TwentyOneNine, "21_9" }
+        };
+
         public MainForm()
         {
             InitializeComponent();
-            comboBox1.DataSource = Enum.GetValues(typeof(AspectRatio));
+            InitializeComboBox();
             UpdateTextBoxValues();
 
             _builder = new Builder();
+
+            // стресс тест
+            //StressTester st = new StressTester();
+            //st.StressTesting();
         }
 
         private void UpdateTextBoxValues()
@@ -43,6 +57,12 @@ namespace kompas3d_monitor
                     textBox.Text = _parameters.ParametersDict[parameterType].Value.ToString();
                 }
             }
+        }
+        private void InitializeComboBox()
+        {
+            comboBox1.DataSource = new BindingSource(aspectRatioDisplayValues, null);
+            comboBox1.DisplayMember = "Value"; // Что отображать пользователю
+            comboBox1.ValueMember = "Key"; // Реальное значение (AspectRatio)
         }
 
         private void MainValidate(ParameterType parameterType, ref TextBox textBoxTemp)
@@ -145,9 +165,9 @@ namespace kompas3d_monitor
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBox1.SelectedIndex != -1) // Проверяем, что выбран элемент
+            if (comboBox1.SelectedItem is KeyValuePair<AspectRatio, string> selectedItem)
             {
-                AspectRatio selectedAspectRatio = (AspectRatio)Enum.GetValues(typeof(AspectRatio)).GetValue(comboBox1.SelectedIndex);
+                AspectRatio selectedAspectRatio = selectedItem.Key;
                 _parameters.SetAspectRatio(selectedAspectRatio);
             }
 
@@ -160,6 +180,11 @@ namespace kompas3d_monitor
         {
             try
             {
+                if(!ValidateAllTextBoxes())
+                {
+                    throw new FormatException();
+                }
+
                 // Строим модель монитора с использованием параметров
                 _builder.Build(_parameters);
 
@@ -175,6 +200,50 @@ namespace kompas3d_monitor
         private void BuildButton_Click(object sender, EventArgs e)
         {
             BuildModel();
-        }   
+        }
+
+        private bool ValidateAllTextBoxes()
+        {
+            bool allValid = true;
+
+            // Перебор всех типов параметров
+            foreach (ParameterType parameterType in Enum.GetValues(typeof(ParameterType)))
+            {
+                // Определяем соответствующее текстовое поле по имени
+                string textBoxName = $"textBox{(int)parameterType + 1}";
+                var textBox = groupBox1.Controls.OfType<TextBox>().FirstOrDefault(t => t.Name == textBoxName)
+                              ?? groupBox2.Controls.OfType<TextBox>().FirstOrDefault(t => t.Name == textBoxName);
+
+                if (textBox != null)
+                {
+                    try
+                    {
+                        // Пробуем преобразовать значение в double
+                        double value;
+                        if (double.TryParse(textBox.Text, out value))
+                        {
+                            // Если успешно, обновляем параметры
+                            _parameters.AddValueToParameter(parameterType, value);
+                            textBox.BackColor = Color.White; // Убираем подсветку
+                        }
+                        else
+                        {
+                            throw new FormatException($"Строка '{textBox.Text}' не может быть преобразована в тип double.");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Логируем ошибку
+                        textBoxLog.Text += parameterType.ToString() + ": " + ex.Message + "\r\n";
+                        textBox.BackColor = Color.Red; // Подсвечиваем некорректное поле
+                        allValid = false; // Устанавливаем флаг ошибки
+                    }
+                }
+            }
+
+            return allValid;
+        }
     }
+
+
 }

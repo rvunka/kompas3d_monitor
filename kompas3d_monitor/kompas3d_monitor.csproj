@@ -153,6 +153,10 @@
       <Project>{5c4c3877-caa1-492e-ba29-9a4b6b198e4b}</Project>
       <Name>Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Perfomance\Perfomance.csproj">
+      <Project>{4393aa6d-dc7e-4bfc-85fb-fd268a49cbe5}</Project>
+      <Name>Perfomance</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
