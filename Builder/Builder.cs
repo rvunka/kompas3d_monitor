@@ -12,7 +12,7 @@ using KompasAPI7;
 
 namespace kompas3d_monitor
 {
-    internal class Builder
+    public class Builder
     {
         private Wrapper _wrapper;
 
@@ -98,7 +98,7 @@ namespace kompas3d_monitor
             if (sketch != null)
             {
                 // Вырезаем из экрана
-                _wrapper.CutExtrusion(sketch, bD, false);  // Вырезаем вперед
+                _wrapper.CutExtrusion(sketch, bD, false); 
                 Console.WriteLine("Рамка экрана вырезана.");
             }
             else

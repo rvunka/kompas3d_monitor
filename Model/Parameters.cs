@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace kompas3d_monitor
 {
-    internal class Parameters
+    public class Parameters
     {
         private Dictionary<ParameterType, Parameter> _parametersDict = new Dictionary<ParameterType, Parameter>();
         private AspectRatio _aspectRatio;

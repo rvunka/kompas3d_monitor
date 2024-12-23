@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace kompas3d_monitor
 {
-    internal enum ParameterType
+    public enum ParameterType
     {
         ScreenWidth,
         ScreenHeight,

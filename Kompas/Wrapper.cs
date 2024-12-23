@@ -9,11 +9,10 @@ using Kompas6API5;
 using Kompas6Constants;
 using Kompas6Constants3D;
 using KompasAPI7;
-using static System.Windows.Forms.AxHost;
 
 namespace kompas3d_monitor
 {
-    internal class Wrapper
+    public class Wrapper
     {
         private KompasObject _kompas;
         private ksDocument3D _doc3D;

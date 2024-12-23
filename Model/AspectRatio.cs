@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace kompas3d_monitor
 {
-    internal enum AspectRatio
+    public enum AspectRatio
     {
         Custom,
         FourThree,
