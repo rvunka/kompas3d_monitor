@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace kompas3d_monitor
 {
+    //TODO:XML
     public class Parameters
     {
+        //TODO: refactor
         private Dictionary<ParameterType, Parameter> _parametersDict = new Dictionary<ParameterType, Parameter>();
         private AspectRatio _aspectRatio;
 

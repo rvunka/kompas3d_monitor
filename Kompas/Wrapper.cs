@@ -12,6 +12,7 @@ using KompasAPI7;
 
 namespace kompas3d_monitor
 {
+    //TODO: RSDN
     public class Wrapper
     {
         private KompasObject _kompas;
@@ -41,6 +42,7 @@ namespace kompas3d_monitor
             Console.WriteLine($"Линия построена от ({x1}, {y1}) до ({x2}, {y2}).");
         }
 
+        //TODO: RSDN
         // Метод создания прямоугольника (в виде бокса)
         public void CreateBox(double offset, double x, double y, double width, double height, double depth, short planeType = (short)Obj3dType.o3d_planeXOZ)
         {

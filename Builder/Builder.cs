@@ -12,10 +12,13 @@ using KompasAPI7;
 
 namespace kompas3d_monitor
 {
+    //TODO:XML
     public class Builder
     {
+        //TODO:XML
         private Wrapper _wrapper;
 
+        //TODO:XML
         public Builder()
         {
             _wrapper = new Wrapper();
@@ -88,6 +91,7 @@ namespace kompas3d_monitor
 
             var sketchEdit = (ksDocument2D)definition.BeginEdit();
 
+            //TODO: RSDN
             // Внутренний прямоугольник для выреза (рамка)
             var rectParam = _wrapper.CreateRectangleParam(-innerWidth / 2, (-innerHeight / 2) - standHeight - baseHeight, innerWidth, innerHeight);
             sketchEdit.ksRectangle(rectParam, 0);  // Рамка строится от центра

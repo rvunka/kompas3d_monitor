@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace kompas3d_monitor
 {
+    //TODO:XML
     public class Parameter
     {
         private double _value;
@@ -15,6 +16,7 @@ namespace kompas3d_monitor
         public double Value
         {
             get => _value;
+            //TODO: validation?
             set
             {
                 _value = value;
@@ -24,6 +26,7 @@ namespace kompas3d_monitor
         public double MinValue
         {
             get => _minValue;
+            //TODO: validation?
             set
             {
                 _minValue = value;
@@ -33,6 +36,7 @@ namespace kompas3d_monitor
         public double MaxValue
         {
             get => _maxValue;
+            //TODO: validation?
             set
             {
                 _maxValue = value;
@@ -49,6 +53,7 @@ namespace kompas3d_monitor
 
         public void Validate()
         {
+            //TODO: RSDN
             if (Value < _minValue || Value > _maxValue)
                 throw new FormatException($"Значение должно быть между {_minValue} и {_maxValue}");
         }
