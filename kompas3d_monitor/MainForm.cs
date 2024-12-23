@@ -138,6 +138,11 @@ namespace kompas3d_monitor
             MainValidate(ParameterType.JointWidth, ref textBox14); 
         }
 
+        private void textBox15_Leave(object sender, EventArgs e)
+        {
+            MainValidate(ParameterType.JointLenght, ref textBox15);
+        }
+
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBox1.SelectedIndex != -1) // Проверяем, что выбран элемент
@@ -170,7 +175,6 @@ namespace kompas3d_monitor
         private void BuildButton_Click(object sender, EventArgs e)
         {
             BuildModel();
-        }
-
+        }   
     }
 }

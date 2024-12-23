@@ -21,6 +21,7 @@ namespace kompas3d_monitor
         BaseWidth,
         BaseThickness,
         JointHeight,
-        JointWidth
+        JointWidth,
+        JointLenght
     }
 }

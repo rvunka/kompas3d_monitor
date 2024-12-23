@@ -35,6 +35,7 @@ namespace kompas3d_monitor
             _parametersDict.Add(ParameterType.BaseThickness, new Parameter(50, 400, 75));
             _parametersDict.Add(ParameterType.JointHeight, new Parameter(20, 200, 20));
             _parametersDict.Add(ParameterType.JointWidth, new Parameter(20, 200, 60));
+            _parametersDict.Add(ParameterType.JointLenght, new Parameter(0, 150, 15));
         }
 
         public Dictionary<ParameterType, Parameter> ParametersDict

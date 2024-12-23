@@ -29,7 +29,7 @@ namespace kompas3d_monitor
         {
             BuildDisplay(parameters);
             BuildBorder(parameters);
-            //BuildJoint(parameters);
+            BuildJoint(parameters);
             BuildStand(parameters);
             BuildBase(parameters);
             Console.WriteLine("Построение монитора завершено.");
@@ -113,15 +113,15 @@ namespace kompas3d_monitor
         private void BuildJoint(Parameters parameters)
         {
             double j = parameters.ParametersDict[ParameterType.JointWidth].Value;
-            double f = parameters.ParametersDict[ParameterType.StandThickness].Value;
-            double b = parameters.ParametersDict[ParameterType.BorderHeight].Value;
-            double g = parameters.ParametersDict[ParameterType.ScreenThickness].Value;
+            double f = parameters.ParametersDict[ParameterType.JointHeight].Value;
+            double b = parameters.ParametersDict[ParameterType.JointLenght].Value;
+            double standHeight = parameters.ParametersDict[ParameterType.StandHeight].Value;
+            double baseHeight = parameters.ParametersDict[ParameterType.BaseHeight].Value;
 
             double x = -j / 2;
-            double y = f / 2;
-            double offsetZ = g + b;  // Рычаг располагается за экраном
+            double y = -f / 2;
 
-            _wrapper.CreateBox(0, x, y, j, f, b);
+            _wrapper.CreateBox(b, x, y - standHeight - baseHeight, j, f, b);
         }
 
         /// <summary>
@@ -132,7 +132,8 @@ namespace kompas3d_monitor
             double standWidth = parameters.ParametersDict[ParameterType.StandWidth].Value;
             double standHeight = parameters.ParametersDict[ParameterType.StandHeight].Value;
             double standThickness = parameters.ParametersDict[ParameterType.StandThickness].Value;
-            double baseHeight = parameters.ParametersDict[ParameterType.BaseHeight].Value;  
+            double baseHeight = parameters.ParametersDict[ParameterType.BaseHeight].Value;
+            double b = parameters.ParametersDict[ParameterType.JointLenght].Value;
 
             // Позиционирование стойки по центру подставки (X и Y)
             double x = -standWidth / 2;
@@ -140,7 +141,7 @@ namespace kompas3d_monitor
             double offsetZ = -baseHeight / 2;
 
             //_wrapper.CreateBox(x, y, -standHeight, standThickness, standWidth, (short)Obj3dType.o3d_planeYOZ);
-            _wrapper.CreateBox(standThickness, x, y + offsetZ, standWidth, -standHeight, standThickness);
+            _wrapper.CreateBox(standThickness + b, x, y + offsetZ, standWidth, -standHeight, standThickness);
         }
 
         /// <summary>

@@ -77,6 +77,9 @@
             this.label26 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.textBox15 = new System.Windows.Forms.TextBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -559,6 +562,9 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label31);
+            this.groupBox2.Controls.Add(this.label30);
+            this.groupBox2.Controls.Add(this.textBox15);
             this.groupBox2.Controls.Add(this.textBox7);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.label7);
@@ -603,6 +609,32 @@
             this.groupBox3.TabIndex = 45;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Окно состояния";
+            // 
+            // textBox15
+            // 
+            this.textBox15.Location = new System.Drawing.Point(143, 238);
+            this.textBox15.Name = "textBox15";
+            this.textBox15.Size = new System.Drawing.Size(82, 20);
+            this.textBox15.TabIndex = 41;
+            this.textBox15.Leave += new System.EventHandler(this.textBox15_Leave);
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(25, 241);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(97, 13);
+            this.label30.TabIndex = 42;
+            this.label30.Text = "Длина крепления";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(231, 241);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(53, 13);
+            this.label31.TabIndex = 43;
+            this.label31.Text = "0-150 мм";
             // 
             // MainForm
             // 
@@ -677,6 +709,9 @@
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.TextBox textBox6;
         private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.TextBox textBox15;
     }
 }
 
