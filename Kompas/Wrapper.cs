@@ -234,34 +234,12 @@ namespace KompasAPIWrapper
         }
 
         /// <summary>
-        /// Сохраняет текущий документ в указанный файл.
-        /// </summary>
-        /// <param name="filePath">Путь к файлу, в который будет сохранен документ.</param>
-        public void SaveFile(string filePath)
-        {
-            _doc3D.SaveAs(filePath);
-        }
-
-        /// <summary>
         /// Создает новый документ 3D-модели.
         /// </summary>
         public void CreateFile()
         {
             _doc3D = (ksDocument3D)_kompas.Document3D();
             _doc3D.Create();
-        }
-
-        /// <summary>
-        /// Открывает существующий документ 3D-модели из указанного файла.
-        /// </summary>
-        /// <param name="filePath">Путь к файлу, который нужно открыть.</param>
-        public void OpenFile(string filePath)
-        {
-            if (_doc3D == null)
-            {
-                _doc3D = (ksDocument3D)_kompas.Document3D();
-            }
-            _doc3D.Open(filePath, false);
         }
 
         /// <summary>

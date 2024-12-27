@@ -24,7 +24,7 @@ namespace Kompas3DMonitorUI
         private Parameters _parameters = new Parameters();
         private Dictionary<TextBox, Exception> _validationErrors = new Dictionary<TextBox, Exception>();
 
-        private Dictionary<AspectRatio, string> aspectRatioDisplayValues = new Dictionary<AspectRatio, string>
+        private Dictionary<AspectRatio, string> _aspectRatioDisplayValues = new Dictionary<AspectRatio, string>
         {
             { AspectRatio.Custom, "Пользовательское" },
             { AspectRatio.FourThree, "4_3" },
@@ -33,7 +33,7 @@ namespace Kompas3DMonitorUI
             { AspectRatio.TwentyOneNine, "21_9" }
         };
 
-        private Dictionary<BaseShape, string> baseShapeDisplayValues = new Dictionary<BaseShape, string>
+        private Dictionary<BaseShape, string> _baseShapeDisplayValues = new Dictionary<BaseShape, string>
         {
             { BaseShape.Rectangle, "Прямоугольник" },
             { BaseShape.Circle, "Круг" },
@@ -75,36 +75,32 @@ namespace Kompas3DMonitorUI
 
                 if (textBox != null && _parameters.ParametersDict.ContainsKey(parameterType))
                 {
-                    // Обновляем текст в текстбоксе
                     textBox.Text = _parameters.ParametersDict[parameterType].Value.ToString();
 
-                    // Проверяем наличие ошибок в словаре и обновляем цвет фона
                     if (_validationErrors.ContainsKey(textBox) && _validationErrors[textBox] == null)
                     {
-                        // Если ошибки нет, устанавливаем белый цвет
                         textBox.BackColor = Color.White;
                     }
                     else if (_validationErrors.ContainsKey(textBox) && _validationErrors[textBox] != null)
                     {
-                        // Если ошибка есть, устанавливаем красный цвет
                         textBox.BackColor = Color.Red;
                     }
                 }
             }
-        }
+        }  
 
         /// <summary>
         /// Инициализирует элементы управления ComboBox для выбора соотношения сторон и формы основания.
         /// </summary>
         private void InitializeComboBox()
         {
-            comboBox1.DataSource = new BindingSource(aspectRatioDisplayValues, null);
-            comboBox1.DisplayMember = "Value";
-            comboBox1.ValueMember = "Key";
+            comboBoxRatio.DataSource = new BindingSource(_aspectRatioDisplayValues, null);
+            comboBoxRatio.DisplayMember = "Value";
+            comboBoxRatio.ValueMember = "Key";
 
-            comboBox2.DataSource = new BindingSource(baseShapeDisplayValues, null);
-            comboBox2.DisplayMember = "Value";
-            comboBox2.ValueMember = "Key";
+            comboBoxShape.DataSource = new BindingSource(_baseShapeDisplayValues, null);
+            comboBoxShape.DisplayMember = "Value";
+            comboBoxShape.ValueMember = "Key";
         }
 
         /// <summary>
@@ -221,11 +217,11 @@ namespace Kompas3DMonitorUI
         /// </summary>
         /// <param name="sender">Объект, вызвавший событие.</param>
         /// <param name="e">Аргументы события.</param>
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBoxRatio_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
-                if (comboBox1.SelectedItem is KeyValuePair<AspectRatio, string> selectedItem)
+                if (comboBoxRatio.SelectedItem is KeyValuePair<AspectRatio, string> selectedItem)
                 {
                     AspectRatio selectedAspectRatio = selectedItem.Key;
                     _parameters.SetAspectRatio(selectedAspectRatio);
@@ -248,9 +244,9 @@ namespace Kompas3DMonitorUI
         /// </summary>
         /// <param name="sender">Объект, вызвавший событие.</param>
         /// <param name="e">Аргументы события.</param>
-        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBoxShape_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBox2.SelectedItem is KeyValuePair<BaseShape, string> selectedItem)
+            if (comboBoxShape.SelectedItem is KeyValuePair<BaseShape, string> selectedItem)
             {
                 _parameters.BaseShape = selectedItem.Key;
 

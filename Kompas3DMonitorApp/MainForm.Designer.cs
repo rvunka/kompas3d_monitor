@@ -54,7 +54,7 @@
             this.textBox12 = new System.Windows.Forms.TextBox();
             this.textBox13 = new System.Windows.Forms.TextBox();
             this.textBox14 = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxRatio = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
@@ -81,9 +81,9 @@
             this.textBox15 = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.comboBoxShape = new System.Windows.Forms.ComboBox();
             this.label32 = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -337,16 +337,16 @@
             this.textBox14.TabIndex = 26;
             this.textBox14.Leave += new System.EventHandler(this.textBox_Leave);
             // 
-            // comboBox1
+            // comboBoxRatio
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(143, 23);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(133, 21);
-            this.comboBox1.TabIndex = 28;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.comboBoxRatio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxRatio.FormattingEnabled = true;
+            this.comboBoxRatio.Location = new System.Drawing.Point(143, 23);
+            this.comboBoxRatio.Margin = new System.Windows.Forms.Padding(2);
+            this.comboBoxRatio.Name = "comboBoxRatio";
+            this.comboBoxRatio.Size = new System.Drawing.Size(133, 21);
+            this.comboBoxRatio.TabIndex = 28;
+            this.comboBoxRatio.SelectedIndexChanged += new System.EventHandler(this.comboBoxRatio_SelectedIndexChanged);
             // 
             // label14
             // 
@@ -633,8 +633,8 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.textBoxLog);
             this.groupBox3.Location = new System.Drawing.Point(11, 289);
@@ -648,9 +648,9 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.comboBox2);
+            this.groupBox4.Controls.Add(this.comboBoxShape);
             this.groupBox4.Controls.Add(this.label32);
-            this.groupBox4.Controls.Add(this.comboBox1);
+            this.groupBox4.Controls.Add(this.comboBoxRatio);
             this.groupBox4.Controls.Add(this.label14);
             this.groupBox4.Location = new System.Drawing.Point(11, 201);
             this.groupBox4.Name = "groupBox4";
@@ -658,6 +658,16 @@
             this.groupBox4.TabIndex = 46;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Опциональные параметры";
+            // 
+            // comboBoxShape
+            // 
+            this.comboBoxShape.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxShape.FormattingEnabled = true;
+            this.comboBoxShape.Location = new System.Drawing.Point(143, 47);
+            this.comboBoxShape.Name = "comboBoxShape";
+            this.comboBoxShape.Size = new System.Drawing.Size(133, 21);
+            this.comboBoxShape.TabIndex = 2;
+            this.comboBoxShape.SelectedIndexChanged += new System.EventHandler(this.comboBoxShape_SelectedIndexChanged);
             // 
             // label32
             // 
@@ -667,16 +677,6 @@
             this.label32.Size = new System.Drawing.Size(100, 13);
             this.label32.TabIndex = 1;
             this.label32.Text = "Форма подставки";
-            // 
-            // comboBox2
-            // 
-            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(143, 47);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(133, 21);
-            this.comboBox2.TabIndex = 2;
-            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
             // MainForm
             // 
@@ -731,7 +731,7 @@
         private System.Windows.Forms.TextBox textBox12;
         private System.Windows.Forms.TextBox textBox13;
         private System.Windows.Forms.TextBox textBox14;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboBoxRatio;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
@@ -760,7 +760,7 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label label32;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox comboBoxShape;
     }
 }
 
