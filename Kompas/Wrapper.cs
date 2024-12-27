@@ -10,7 +10,7 @@ using Kompas6Constants;
 using Kompas6Constants3D;
 using KompasAPI7;
 
-namespace kompas3d_monitor
+namespace KompasAPIWrapper
 {
     //TODO: RSDN
     public class Wrapper
@@ -36,14 +36,11 @@ namespace kompas3d_monitor
             sketch.Create();
 
             var sketchEdit = (ksDocument2D)definition.BeginEdit();
-            sketchEdit.ksLineSeg(x1, y1, x2, y2, 1); // Создаем линию
+            sketchEdit.ksLineSeg(x1, y1, x2, y2, 1);
             definition.EndEdit();
-
-            Console.WriteLine($"Линия построена от ({x1}, {y1}) до ({x2}, {y2}).");
         }
 
         //TODO: RSDN
-        // Метод создания прямоугольника (в виде бокса)
         public void CreateBox(double offset, double x, double y, double width, double height, double depth, short planeType = (short)Obj3dType.o3d_planeXOZ)
         {
             if (_doc3D == null)
@@ -52,28 +49,21 @@ namespace kompas3d_monitor
                 return;
             }
 
-            // Получаем текущую деталь
             var part = (ksPart)_doc3D.GetPart((short)Part_Type.pTop_Part);
-
-            // Создаем эскиз
             var sketch = (ksEntity)part.NewEntity((short)Obj3dType.o3d_sketch);
             var definition = (ksSketchDefinition)sketch.GetDefinition();
 
-            // Устанавливаем плоскость для эскиза (XOZ, YOZ или XOY)
             definition.SetPlane(part.GetDefaultEntity(planeType));
             sketch.Create();
 
-            // Задаем параметры прямоугольника
             var rectParam = (RectangleParam)_kompas.GetParamStruct((short)StructType2DEnum.ko_RectangleParam);
             rectParam.x = x;
             rectParam.y = y;
             rectParam.width = width;
             rectParam.height = height;
-            rectParam.style = 1;  // Сплошная линия
-
-            // Редактируем эскиз и строим прямоугольник
+            rectParam.style = 1;
             var sketchEdit = (ksDocument2D)definition.BeginEdit();
-            sketchEdit.ksRectangle(rectParam, 0);  // 0 – строить от угла
+            sketchEdit.ksRectangle(rectParam, 0);
             definition.EndEdit();
 
             if (offset != 0)
@@ -86,8 +76,41 @@ namespace kompas3d_monitor
             {
                 Extrusion(sketch, depth);
             }
+        }
 
-            Console.WriteLine($"Коробка построена: ширина {width}, высота {height}, глубина {depth} на плоскости {(Obj3dType)planeType}.");
+        public void CreateCircle(double offset, double x, double y, double radius, double depth, short planeType = (short)Obj3dType.o3d_planeXOZ)
+        {
+            if (_doc3D == null)
+            {
+                Console.WriteLine("Документ не создан.");
+                return;
+            }
+
+            var part = (ksPart)_doc3D.GetPart((short)Part_Type.pTop_Part);
+            var sketch = (ksEntity)part.NewEntity((short)Obj3dType.o3d_sketch);
+            var definition = (ksSketchDefinition)sketch.GetDefinition();
+
+            definition.SetPlane(part.GetDefaultEntity(planeType));
+            sketch.Create();
+
+            var circleParam = (CircleParam)_kompas.GetParamStruct((short)StructType2DEnum.ko_CircleParam);
+            circleParam.xc = x;
+            circleParam.yc = y;
+            circleParam.rad = radius;
+            var sketchEdit = (ksDocument2D)definition.BeginEdit();
+            sketchEdit.ksCircle(x, y, radius, 1);
+            definition.EndEdit();
+
+            if (offset != 0)
+            {
+                definition.SetPlane(CreateOffsetPlane(part, planeType, offset));
+                sketch.Update();
+                Extrusion(sketch, depth);
+            }
+            else
+            {
+                Extrusion(sketch, depth);
+            }
         }
 
         public ksEntity CreateSketch(ksPart part, short planeType)
@@ -99,7 +122,6 @@ namespace kompas3d_monitor
             return sketch;
         }
 
-        // Метод выдавливания эскиза
         public void Extrusion(ksEntity sketch, double depth)
         {
             if (_doc3D == null)
@@ -112,16 +134,10 @@ namespace kompas3d_monitor
             var extrusion = (ksEntity)part.NewEntity((short)Obj3dType.o3d_bossExtrusion);
             var extrusionDef = (ksBossExtrusionDefinition)extrusion.GetDefinition();
 
-            // Привязываем эскиз к выдавливанию
             extrusionDef.SetSketch(sketch);
-
-            // Устанавливаем направление всегда вверх (dtNormal)
             extrusionDef.directionType = (short)Direction_Type.dtNormal;
-
-            // Выдавливаем на заданную глубину
             extrusionDef.SetSideParam(true, (short)End_Type.etBlind, depth, 0, false);
             extrusion.Create();
-
         }
 
         public void CutExtrusion(ksEntity sketch, double depth, bool reverse = false)
@@ -136,8 +152,6 @@ namespace kompas3d_monitor
             cutDefinition.directionType = (short)(reverse ? Direction_Type.dtReverse : Direction_Type.dtNormal);
             cutDefinition.SetSideParam(true, (short)End_Type.etBlind, depth, 0, false);
             cutExtrusion.Create();
-
-            Console.WriteLine($"Вырез выполнен на глубину {depth}. Направление: {(reverse ? "Вниз" : "Вверх")}");
         }
 
         private ksEntity CreateOffsetPlane(ksPart part, short basePlane, double offset)
@@ -145,30 +159,24 @@ namespace kompas3d_monitor
             var offsetPlane = (ksEntity)part.NewEntity((short)Obj3dType.o3d_planeOffset);
             var planeDef = (ksPlaneOffsetDefinition)offsetPlane.GetDefinition();
 
-            planeDef.SetPlane(part.GetDefaultEntity(basePlane));  // Базовая плоскость
+            planeDef.SetPlane(part.GetDefaultEntity(basePlane));
             planeDef.offset = offset;
-            planeDef.direction = false;  // Смещаем в обратную сторону
+            planeDef.direction = false;
             offsetPlane.Create();
 
-            Console.WriteLine($"Смещенная плоскость создана на расстоянии {offset}.");
             return offsetPlane;
         }
-
-        // Метод для сохранения файла
         public void SaveFile(string filePath)
         {
             _doc3D.SaveAs(filePath);
-            Console.WriteLine($"Файл сохранен по пути: {filePath}");
         }
 
-        // Создание нового файла
         public void CreateFile()
         {
             _doc3D = (ksDocument3D)_kompas.Document3D();
             _doc3D.Create();
         }
 
-        // Открытие существующего файла
         public void OpenFile(string filePath)
         {
             if (_doc3D == null)
@@ -177,35 +185,23 @@ namespace kompas3d_monitor
             }
             _doc3D.Open(filePath, false);
         }
-        public void OpenCAD() 
+        public void OpenCAD()
         {
             try
             {
-                // Попытка подключения к существующему процессу Kompas3D
                 this._kompas = (KompasObject)Marshal.GetActiveObject("KOMPAS.Application.5");
-                Console.WriteLine("Kompas3D уже запущен.");
             }
             catch
             {
-                // Если процесс не найден, создаем новый экземпляр
                 Type kompasType = Type.GetTypeFromProgID("KOMPAS.Application.5");
                 this._kompas = (KompasObject)Activator.CreateInstance(kompasType);
-                Console.WriteLine("Запущен новый экземпляр Kompas3D.");
             }
 
             if (this._kompas != null)
             {
-                // Делаем окно приложения видимым
                 this._kompas.Visible = true;
                 this._kompas.ActivateControllerAPI();
-                Console.WriteLine("Kompas3D успешно запущен и доступен.");
             }
-            else
-            {
-                Console.WriteLine("Не удалось запустить Kompas3D.");
-            }
-
-            Console.ReadLine();
         }
 
         public ksPart GetCurrentPart()
@@ -220,7 +216,7 @@ namespace kompas3d_monitor
             rectParam.y = y;
             rectParam.width = width;
             rectParam.height = height;
-            rectParam.style = 1; 
+            rectParam.style = 1;
             return rectParam;
         }
     }

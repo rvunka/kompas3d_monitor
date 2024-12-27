@@ -56,10 +56,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\kompas3d_monitor\kompas3d_monitor.csproj">
-      <Project>{1b1e77b5-6dda-45b3-becf-83c5a489a90f}</Project>
-      <Name>kompas3d_monitor</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{5c4c3877-caa1-492e-ba29-9a4b6b198e4b}</Project>
       <Name>Model</Name>

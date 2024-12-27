@@ -9,8 +9,10 @@ using Kompas6API5;
 using Kompas6Constants;
 using Kompas6Constants3D;
 using KompasAPI7;
+using KompasAPIWrapper;
+using MonitorModel;
 
-namespace kompas3d_monitor
+namespace MonitorBuilder
 {
     //TODO:XML
     public class Builder
@@ -76,33 +78,29 @@ namespace kompas3d_monitor
             var sketch = _wrapper.CreateSketch(part, (short)Obj3dType.o3d_planeXOZ);
             var definition = (ksSketchDefinition)sketch.GetDefinition();
 
-            // Получаем плоскость XOZ и смещаем ее вперед на толщину экрана
             var planeXOZ = part.GetDefaultEntity((short)Obj3dType.o3d_planeXOZ);
             var offsetPlane = (ksEntity)part.NewEntity((short)Obj3dType.o3d_planeOffset);
             var planeDef = (ksPlaneOffsetDefinition)offsetPlane.GetDefinition();
-            planeDef.offset = g;  // Смещаем вперед на толщину экрана
-            planeDef.direction = true;  // Смещение в положительном направлении
-            planeDef.SetPlane(planeXOZ);  // Устанавливаем плоскость от которой смещаем
-            offsetPlane.Create();  // Создаем смещенную плоскость
+            planeDef.offset = g;
+            planeDef.direction = true;
+            planeDef.SetPlane(planeXOZ);
+            offsetPlane.Create();
 
-            // Привязываем эскиз к смещенной плоскости
             definition.SetPlane(offsetPlane);
             sketch.Create();
 
             var sketchEdit = (ksDocument2D)definition.BeginEdit();
 
             //TODO: RSDN
-            // Внутренний прямоугольник для выреза (рамка)
             var rectParam = _wrapper.CreateRectangleParam(-innerWidth / 2, (-innerHeight / 2) - standHeight - baseHeight, innerWidth, innerHeight);
-            sketchEdit.ksRectangle(rectParam, 0);  // Рамка строится от центра
+            sketchEdit.ksRectangle(rectParam, 0);
 
             definition.EndEdit();
             sketch.Update();
 
             if (sketch != null)
             {
-                // Вырезаем из экрана
-                _wrapper.CutExtrusion(sketch, bD, false); 
+                _wrapper.CutExtrusion(sketch, bD, false);
                 Console.WriteLine("Рамка экрана вырезана.");
             }
             else
@@ -139,12 +137,10 @@ namespace kompas3d_monitor
             double baseHeight = parameters.ParametersDict[ParameterType.BaseHeight].Value;
             double b = parameters.ParametersDict[ParameterType.JointLenght].Value;
 
-            // Позиционирование стойки по центру подставки (X и Y)
             double x = -standWidth / 2;
             double y = -standThickness / 2;
             double offsetZ = -baseHeight / 2;
 
-            //_wrapper.CreateBox(x, y, -standHeight, standThickness, standWidth, (short)Obj3dType.o3d_planeYOZ);
             _wrapper.CreateBox(standThickness + b, x, y + offsetZ, standWidth, -standHeight, standThickness);
         }
 
@@ -160,9 +156,45 @@ namespace kompas3d_monitor
             double x = -D / 2;
             double y = -z / 2;
 
-            _wrapper.CreateBox(0, x, y, D, z, s, (short)Obj3dType.o3d_planeXOY);
+            if (parameters.BaseShape == BaseShape.Rectangle)
+            {
+                _wrapper.CreateBox(0, x, y, D, z, s, (short)Obj3dType.o3d_planeXOY);
+                return;
+            }
 
-            Console.WriteLine("Подставка построена по центру.");
+            if (parameters.BaseShape == BaseShape.Circle)
+            {
+                _wrapper.CreateCircle(0, 0, 0, z / 2, s, (short)Obj3dType.o3d_planeXOY);
+                return;
+            }
+
+            if (parameters.BaseShape == BaseShape.Trapeze)
+            {
+                _wrapper.CreateBox(0, x, y, D, z, s, (short)Obj3dType.o3d_planeXOY);
+
+                var part = _wrapper.GetCurrentPart();
+                var sketch = _wrapper.CreateSketch(part, (short)Obj3dType.o3d_planeXOY);
+                var definition = (ksSketchDefinition)sketch.GetDefinition();
+                var planeXOY = part.GetDefaultEntity((short)Obj3dType.o3d_planeXOY);
+
+                definition.SetPlane(planeXOY);
+                sketch.Create();
+
+                var sketchEdit = (ksDocument2D)definition.BeginEdit();
+                sketchEdit.ksLineSeg(x, y, x, y + z, 1);
+                sketchEdit.ksLineSeg(x, y + z, x + 15, y + z, 1);
+                sketchEdit.ksLineSeg(x + 15, y + z, x, y, 1);
+
+                sketchEdit.ksLineSeg(x + D, y, x + D, y + z, 1);
+                sketchEdit.ksLineSeg(x + D, y + z, x + D - 15, y + z, 1);
+                sketchEdit.ksLineSeg(x + D - 15, y + z, x + D, y, 1);
+
+                definition.EndEdit();
+                sketch.Update();
+
+                _wrapper.CutExtrusion(sketch, s, true);
+                return;
+            }
         }
 
     }

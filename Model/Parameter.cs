@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace kompas3d_monitor
+namespace MonitorModel
 {
     //TODO:XML
     public class Parameter
@@ -32,7 +32,7 @@ namespace kompas3d_monitor
                 _minValue = value;
             }
         }
-        
+
         public double MaxValue
         {
             get => _maxValue;

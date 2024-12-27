@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace kompas3d_monitor
+namespace Kompass3DMonitor.UI
 {
     internal static class Program
     {

@@ -6,7 +6,8 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using NickStrupat;
-using kompas3d_monitor;
+using MonitorModel;
+using MonitorBuilder;
 
 namespace Perfomance
 {

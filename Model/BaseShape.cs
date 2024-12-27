@@ -6,13 +6,10 @@ using System.Threading.Tasks;
 
 namespace MonitorModel
 {
-    //TODO:XML
-    public enum AspectRatio
+    public enum BaseShape
     {
-        Custom,
-        FourThree,
-        SixteenTen,
-        SixteenNine,
-        TwentyOneNine
+        Rectangle,
+        Circle,
+        Trapeze
     }
 }

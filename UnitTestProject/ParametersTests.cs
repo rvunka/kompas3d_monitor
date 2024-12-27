@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using kompas3d_monitor;
+using MonitorModel;
 
 namespace UnitTestProject
 {

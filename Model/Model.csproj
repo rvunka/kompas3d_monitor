@@ -7,7 +7,7 @@
     <ProjectGuid>{5C4C3877-CAA1-492E-BA29-9A4B6B198E4B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Model</RootNamespace>
+    <RootNamespace>MonitorModel</RootNamespace>
     <AssemblyName>Model</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AspectRatio.cs" />
+    <Compile Include="BaseShape.cs" />
     <Compile Include="Parameter.cs" />
     <Compile Include="Parameters.cs" />
     <Compile Include="ParameterType.cs" />

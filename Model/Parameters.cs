@@ -4,14 +4,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace kompas3d_monitor
+namespace MonitorModel
 {
     //TODO:XML
     public class Parameters
     {
         //TODO: refactor
-        private Dictionary<ParameterType, Parameter> _parametersDict = new Dictionary<ParameterType, Parameter>();
+        private Dictionary<ParameterType, Parameter> _parametersDict = new Dictionary<ParameterType, Parameter>
+        {
+            { ParameterType.ScreenWidth, new Parameter(50, 1000, 200) },
+            { ParameterType.ScreenHeight, new Parameter(50, 1000, 200) },
+            { ParameterType.ScreenThickness, new Parameter(5, 30, 10) },
+            { ParameterType.BorderHeight, new Parameter(5, 30, 10) },
+            { ParameterType.BorderWidth, new Parameter(5, 30, 10) },
+            { ParameterType.BorderDepth, new Parameter(0, 20, 5) },
+            { ParameterType.StandHeight, new Parameter(50, 200, 125) },
+            { ParameterType.StandWidth, new Parameter(30, 100, 40) },
+            { ParameterType.StandThickness, new Parameter(10, 50, 10) },
+            { ParameterType.BaseHeight, new Parameter(10, 150, 10) },
+            { ParameterType.BaseWidth, new Parameter(50, 400, 75) },
+            { ParameterType.BaseThickness, new Parameter(50, 400, 75) },
+            { ParameterType.JointHeight, new Parameter(20, 200, 20) },
+            { ParameterType.JointWidth, new Parameter(20, 200, 60) },
+            { ParameterType.JointLenght, new Parameter(0, 150, 15) }
+        };
         private AspectRatio _aspectRatio;
+        private BaseShape _baseShape;
 
         public Parameters(Dictionary<ParameterType, Parameter> parameters, AspectRatio aspectRatio)
         {
@@ -22,21 +40,7 @@ namespace kompas3d_monitor
         public Parameters()
         {
             _aspectRatio = AspectRatio.Custom;
-            _parametersDict.Add(ParameterType.ScreenWidth, new Parameter(50, 1000, 200));
-            _parametersDict.Add(ParameterType.ScreenHeight, new Parameter(50, 1000, 200));
-            _parametersDict.Add(ParameterType.ScreenThickness, new Parameter(5, 30, 10));
-            _parametersDict.Add(ParameterType.BorderHeight, new Parameter(5, 30, 10));
-            _parametersDict.Add(ParameterType.BorderWidth, new Parameter(5, 30, 10));
-            _parametersDict.Add(ParameterType.BorderDepth, new Parameter(0, 20, 5));
-            _parametersDict.Add(ParameterType.StandHeight, new Parameter(50, 200, 125));
-            _parametersDict.Add(ParameterType.StandWidth, new Parameter(30, 100, 40));
-            _parametersDict.Add(ParameterType.StandThickness, new Parameter(10, 50, 10));
-            _parametersDict.Add(ParameterType.BaseHeight, new Parameter(10, 150, 10));
-            _parametersDict.Add(ParameterType.BaseWidth, new Parameter(50, 400, 75));
-            _parametersDict.Add(ParameterType.BaseThickness, new Parameter(50, 400, 75));
-            _parametersDict.Add(ParameterType.JointHeight, new Parameter(20, 200, 20));
-            _parametersDict.Add(ParameterType.JointWidth, new Parameter(20, 200, 60));
-            _parametersDict.Add(ParameterType.JointLenght, new Parameter(0, 150, 15));
+            _baseShape = BaseShape.Trapeze;
         }
 
         public Dictionary<ParameterType, Parameter> ParametersDict
@@ -98,6 +102,16 @@ namespace kompas3d_monitor
                 default:
                     return 1;
             }
+        }
+
+        public void SetBaseShape(BaseShape baseShape)
+        {
+
+        }
+
+        public BaseShape BaseShape
+        {
+            get { return _baseShape; }
         }
 
     }

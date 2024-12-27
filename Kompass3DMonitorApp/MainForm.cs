@@ -8,9 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Perfomance;
+using MonitorModel;
+using MonitorBuilder;
+using System.Runtime.CompilerServices;
 
 //TODO: RSDN
-namespace kompas3d_monitor
+namespace Kompass3DMonitor.UI
 {
     public partial class MainForm : Form
     {
@@ -62,8 +65,8 @@ namespace kompas3d_monitor
         private void InitializeComboBox()
         {
             comboBox1.DataSource = new BindingSource(aspectRatioDisplayValues, null);
-            comboBox1.DisplayMember = "Value"; // Что отображать пользователю
-            comboBox1.ValueMember = "Key"; // Реальное значение (AspectRatio)
+            comboBox1.DisplayMember = "Value";
+            comboBox1.ValueMember = "Key";
         }
 
         private void MainValidate(ParameterType parameterType, ref TextBox textBoxTemp)
@@ -156,7 +159,7 @@ namespace kompas3d_monitor
 
         private void textBox14_Leave(object sender, EventArgs e)
         {
-            MainValidate(ParameterType.JointWidth, ref textBox14); 
+            MainValidate(ParameterType.JointWidth, ref textBox14);
         }
 
         private void textBox15_Leave(object sender, EventArgs e)
@@ -181,15 +184,12 @@ namespace kompas3d_monitor
         {
             try
             {
-                if(!ValidateAllTextBoxes())
+                if (!ValidateAllTextBoxes())
                 {
                     throw new FormatException();
                 }
 
-                // Строим модель монитора с использованием параметров
                 _builder.Build(_parameters);
-
-                // Выводим сообщение о завершении построения
                 textBoxLog.Text += "Модель монитора построена.\r\n";
             }
             catch (Exception ex)
@@ -207,10 +207,8 @@ namespace kompas3d_monitor
         {
             bool allValid = true;
 
-            // Перебор всех типов параметров
             foreach (ParameterType parameterType in Enum.GetValues(typeof(ParameterType)))
             {
-                // Определяем соответствующее текстовое поле по имени
                 string textBoxName = $"textBox{(int)parameterType + 1}";
                 var textBox = groupBox1.Controls.OfType<TextBox>().FirstOrDefault(t => t.Name == textBoxName)
                               ?? groupBox2.Controls.OfType<TextBox>().FirstOrDefault(t => t.Name == textBoxName);
@@ -219,13 +217,11 @@ namespace kompas3d_monitor
                 {
                     try
                     {
-                        // Пробуем преобразовать значение в double
                         double value;
                         if (double.TryParse(textBox.Text, out value))
                         {
-                            // Если успешно, обновляем параметры
                             _parameters.AddValueToParameter(parameterType, value);
-                            textBox.BackColor = Color.White; // Убираем подсветку
+                            textBox.BackColor = Color.White;
                         }
                         else
                         {
@@ -234,10 +230,9 @@ namespace kompas3d_monitor
                     }
                     catch (Exception ex)
                     {
-                        // Логируем ошибку
                         textBoxLog.Text += parameterType.ToString() + ": " + ex.Message + "\r\n";
-                        textBox.BackColor = Color.Red; // Подсвечиваем некорректное поле
-                        allValid = false; // Устанавливаем флаг ошибки
+                        textBox.BackColor = Color.Red;
+                        allValid = false;
                     }
                 }
             }

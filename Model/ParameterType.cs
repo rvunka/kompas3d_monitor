@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace kompas3d_monitor
+namespace MonitorModel
 {
     public enum ParameterType
     {

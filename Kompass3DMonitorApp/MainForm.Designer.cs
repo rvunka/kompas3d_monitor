@@ -1,4 +1,4 @@
-﻿namespace kompas3d_monitor
+﻿namespace Kompass3DMonitor.UI
 {
     partial class MainForm
     {
@@ -76,10 +76,10 @@
             this.label27 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.textBox15 = new System.Windows.Forms.TextBox();
-            this.label30 = new System.Windows.Forms.Label();
             this.label31 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.textBox15 = new System.Windows.Forms.TextBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -464,6 +464,7 @@
             // 
             // BuildButton
             // 
+            this.BuildButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.BuildButton.Location = new System.Drawing.Point(509, 377);
             this.BuildButton.Margin = new System.Windows.Forms.Padding(2);
             this.BuildButton.Name = "BuildButton";
@@ -475,12 +476,13 @@
             // 
             // textBoxLog
             // 
+            this.textBoxLog.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxLog.Enabled = false;
-            this.textBoxLog.Location = new System.Drawing.Point(4, 16);
+            this.textBoxLog.Location = new System.Drawing.Point(2, 15);
             this.textBoxLog.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxLog.Multiline = true;
             this.textBoxLog.Name = "textBoxLog";
-            this.textBoxLog.Size = new System.Drawing.Size(627, 60);
+            this.textBoxLog.Size = new System.Drawing.Size(630, 66);
             this.textBoxLog.TabIndex = 42;
             // 
             // groupBox1
@@ -562,6 +564,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.label31);
             this.groupBox2.Controls.Add(this.label30);
             this.groupBox2.Controls.Add(this.textBox15);
@@ -598,25 +601,14 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Корпус";
             // 
-            // groupBox3
+            // label31
             // 
-            this.groupBox3.Controls.Add(this.textBoxLog);
-            this.groupBox3.Location = new System.Drawing.Point(11, 289);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox3.Size = new System.Drawing.Size(634, 83);
-            this.groupBox3.TabIndex = 45;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Окно состояния";
-            // 
-            // textBox15
-            // 
-            this.textBox15.Location = new System.Drawing.Point(143, 238);
-            this.textBox15.Name = "textBox15";
-            this.textBox15.Size = new System.Drawing.Size(82, 20);
-            this.textBox15.TabIndex = 41;
-            this.textBox15.Leave += new System.EventHandler(this.textBox15_Leave);
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(231, 241);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(53, 13);
+            this.label31.TabIndex = 43;
+            this.label31.Text = "0-150 мм";
             // 
             // label30
             // 
@@ -627,14 +619,28 @@
             this.label30.TabIndex = 42;
             this.label30.Text = "Длина крепления";
             // 
-            // label31
+            // textBox15
             // 
-            this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(231, 241);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(53, 13);
-            this.label31.TabIndex = 43;
-            this.label31.Text = "0-150 мм";
+            this.textBox15.Location = new System.Drawing.Point(143, 238);
+            this.textBox15.Name = "textBox15";
+            this.textBox15.Size = new System.Drawing.Size(82, 20);
+            this.textBox15.TabIndex = 41;
+            this.textBox15.Leave += new System.EventHandler(this.textBox15_Leave);
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this.textBoxLog);
+            this.groupBox3.Location = new System.Drawing.Point(11, 289);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox3.Size = new System.Drawing.Size(634, 83);
+            this.groupBox3.TabIndex = 45;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Окно состояния";
             // 
             // MainForm
             // 
