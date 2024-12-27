@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject", "UnitTest
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Perfomance", "Perfomance\Perfomance.csproj", "{4393AA6D-DC7E-4BFC-85FB-FD268A49CBE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kompass3DMonitorApp", "Kompass3DMonitorApp\Kompass3DMonitorApp.csproj", "{1B1E77B5-6DDA-45B3-BECF-83C5A489A90F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kompas3DMonitorApp", "Kompas3DMonitorApp\Kompas3DMonitorApp.csproj", "{1B1E77B5-6DDA-45B3-BECF-83C5A489A90F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

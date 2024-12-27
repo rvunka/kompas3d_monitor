@@ -13,7 +13,7 @@ using MonitorBuilder;
 using System.Runtime.CompilerServices;
 
 //TODO: RSDN
-namespace Kompass3DMonitorUI
+namespace Kompas3DMonitorUI
 {
     public partial class MainForm : Form
     {

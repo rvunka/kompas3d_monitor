@@ -1,4 +1,4 @@
-﻿namespace Kompass3DMonitorUI
+﻿namespace Kompas3DMonitorUI
 {
     partial class MainForm
     {
