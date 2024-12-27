@@ -19,6 +19,7 @@ namespace Kompas3DMonitorUI
     {
         private Builder _builder;
         private Parameters _parameters = new Parameters();
+        private Dictionary<TextBox, Exception> _validationErrors = new Dictionary<TextBox, Exception>();
 
         private Dictionary<AspectRatio, string> aspectRatioDisplayValues = new Dictionary<AspectRatio, string>
         {
@@ -39,8 +40,8 @@ namespace Kompas3DMonitorUI
         public MainForm()
         {
             InitializeComponent();
-            InitializeComboBox();
             UpdateTextBoxValues();
+            InitializeComboBox();
 
             _builder = new Builder();
 
@@ -89,17 +90,33 @@ namespace Kompas3DMonitorUI
                 {
                     _parameters.AddValueToParameter(parameterType, value);
                     textBoxTemp.BackColor = Color.White;
+                    _validationErrors[textBoxTemp] = null; 
                 }
                 else
+                {
                     throw new FormatException($"Строка '{textBoxTemp.Text}' не может быть преобразована в тип double.");
+                }
             }
             catch (Exception ex)
             {
                 textBoxLog.Text += parameterType.ToString() + ": " + ex.Message + "\r\n";
                 textBoxTemp.BackColor = Color.Red;
+                _validationErrors[textBoxTemp] = ex; 
             }
 
             UpdateTextBoxValues();
+        }
+
+        private bool AreAllTextBoxesValid()
+        {
+            foreach (var value in _validationErrors.Values)
+            {
+                if (value != null)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         private void textBox_Leave(object sender, EventArgs e)
@@ -163,15 +180,24 @@ namespace Kompas3DMonitorUI
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBox1.SelectedItem is KeyValuePair<AspectRatio, string> selectedItem)
+            try
             {
-                AspectRatio selectedAspectRatio = selectedItem.Key;
-                _parameters.SetAspectRatio(selectedAspectRatio);
+                if (comboBox1.SelectedItem is KeyValuePair<AspectRatio, string> selectedItem)
+                {
+                    AspectRatio selectedAspectRatio = selectedItem.Key;
+                    _parameters.SetAspectRatio(selectedAspectRatio);
+                }
+
+                MainValidate(ParameterType.ScreenWidth, ref textBox1);
+                MainValidate(ParameterType.ScreenHeight, ref textBox2);
+            }
+            catch
+            {
+                MainValidate(ParameterType.ScreenWidth, ref textBox1);
+                MainValidate(ParameterType.ScreenHeight, ref textBox2);
             }
 
-            UpdateTextBoxValues();
-            MainValidate(ParameterType.ScreenWidth, ref textBox1);
-            MainValidate(ParameterType.ScreenHeight, ref textBox2);
+            UpdateTextBoxValues();        
         }
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
@@ -211,20 +237,14 @@ namespace Kompas3DMonitorUI
 
         private void BuildModel()
         {
-            try
+            if (!AreAllTextBoxesValid())
             {
-                if (!ValidateAllTextBoxes())
-                {
-                    throw new FormatException();
-                }
+                MessageBox.Show("Не все параметры корректны. Исправьте ошибки перед построением.",
+                                "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-                _builder.Build(_parameters);
-                textBoxLog.Text += "Модель монитора построена.\r\n";
-            }
-            catch (Exception ex)
-            {
-                textBoxLog.Text += "Ошибка при построении модели: " + ex.Message + "\r\n";
-            }
+            _builder.Build(_parameters);
         }
 
         private void BuildButton_Click(object sender, EventArgs e)

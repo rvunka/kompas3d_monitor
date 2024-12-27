@@ -20,6 +20,7 @@ namespace MonitorModel
             set
             {
                 _value = value;
+                Validate();
             }
         }
 
@@ -30,6 +31,7 @@ namespace MonitorModel
             set
             {
                 _minValue = value;
+                Validate();
             }
         }
 
@@ -40,18 +42,18 @@ namespace MonitorModel
             set
             {
                 _maxValue = value;
+                Validate();
             }
         }
 
         public Parameter(double minValue, double maxValue, double initialValue)
         {
-            MinValue = minValue;
-            MaxValue = maxValue;
+            _minValue = minValue;
+            _maxValue = maxValue;
             Value = initialValue; // Проверка значения через свойство
-            Validate();
         }
 
-        public void Validate()
+        private void Validate()
         {
             //TODO: RSDN
             if (Value < _minValue || Value > _maxValue)

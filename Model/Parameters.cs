@@ -53,20 +53,34 @@ namespace MonitorModel
             if (_parametersDict.ContainsKey(parameterType))
             {
                 _parametersDict[parameterType].Value = value;
-                _parametersDict[parameterType].Validate();
+                //_parametersDict[parameterType].Validate();
 
                 if (_aspectRatio != AspectRatio.Custom)
                 {
                     // Проверка связи параметров ScreenWidth и ScreenHeight
                     if (parameterType == ParameterType.ScreenWidth)
                     {
-                        double heightValue = value * GetAspectRatioFactor(_aspectRatio);
-                        _parametersDict[ParameterType.ScreenHeight].Value = heightValue;
+                        try
+                        {
+                            double heightValue = value * GetAspectRatioFactor(_aspectRatio);
+                            _parametersDict[ParameterType.ScreenHeight].Value = heightValue;
+                        }
+                        catch
+                        {
+
+                        }
                     }
                     else if (parameterType == ParameterType.ScreenHeight)
                     {
-                        double widthValue = value / GetAspectRatioFactor(_aspectRatio);
-                        _parametersDict[ParameterType.ScreenWidth].Value = widthValue;
+                        try
+                        {
+                            double widthValue = value / GetAspectRatioFactor(_aspectRatio);
+                            _parametersDict[ParameterType.ScreenWidth].Value = widthValue;
+                        }
+                        catch
+                        {
+
+                        }
                     }
                 }
             }

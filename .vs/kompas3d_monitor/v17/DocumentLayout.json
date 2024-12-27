@@ -3,12 +3,20 @@
   "WorkspaceRootPath": "D:\\Microsoft Visual Studio\\Repository\\kompas3d_monitor\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{1B1E77B5-6DDA-45B3-BECF-83C5A489A90F}|Kompas3DMonitorApp\\Kompas3DMonitorApp.csproj|d:\\microsoft visual studio\\repository\\kompas3d_monitor\\kompas3dmonitorapp\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{1B1E77B5-6DDA-45B3-BECF-83C5A489A90F}|Kompas3DMonitorApp\\Kompas3DMonitorApp.csproj|solutionrelative:kompas3dmonitorapp\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{1B1E77B5-6DDA-45B3-BECF-83C5A489A90F}|Kompas3DMonitorApp\\Kompas3DMonitorApp.csproj|d:\\microsoft visual studio\\repository\\kompas3d_monitor\\kompas3dmonitorapp\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1B1E77B5-6DDA-45B3-BECF-83C5A489A90F}|Kompas3DMonitorApp\\Kompas3DMonitorApp.csproj|solutionrelative:kompas3dmonitorapp\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5C4C3877-CAA1-492E-BA29-9A4B6B198E4B}|Model\\Model.csproj|D:\\Microsoft Visual Studio\\Repository\\kompas3d_monitor\\model\\parameters.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5C4C3877-CAA1-492E-BA29-9A4B6B198E4B}|Model\\Model.csproj|solutionrelative:model\\parameters.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5C4C3877-CAA1-492E-BA29-9A4B6B198E4B}|Model\\Model.csproj|D:\\Microsoft Visual Studio\\Repository\\kompas3d_monitor\\model\\parameter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5C4C3877-CAA1-492E-BA29-9A4B6B198E4B}|Model\\Model.csproj|solutionrelative:model\\parameter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1B1E77B5-6DDA-45B3-BECF-83C5A489A90F}|Kompas3DMonitorApp\\Kompas3DMonitorApp.csproj|D:\\Microsoft Visual Studio\\Repository\\kompas3d_monitor\\kompas3dmonitorapp\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{1B1E77B5-6DDA-45B3-BECF-83C5A489A90F}|Kompas3DMonitorApp\\Kompas3DMonitorApp.csproj|solutionrelative:kompas3dmonitorapp\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,32 +26,55 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Parameter.cs",
+              "DocumentMoniker": "D:\\Microsoft Visual Studio\\Repository\\kompas3d_monitor\\Model\\Parameter.cs",
+              "RelativeDocumentMoniker": "Model\\Parameter.cs",
+              "ToolTip": "D:\\Microsoft Visual Studio\\Repository\\kompas3d_monitor\\Model\\Parameter.cs",
+              "RelativeToolTip": "Model\\Parameter.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAAwDsAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-27T05:12:27.277Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "Parameters.cs",
+              "DocumentMoniker": "D:\\Microsoft Visual Studio\\Repository\\kompas3d_monitor\\Model\\Parameters.cs",
+              "RelativeDocumentMoniker": "Model\\Parameters.cs",
+              "ToolTip": "D:\\Microsoft Visual Studio\\Repository\\kompas3d_monitor\\Model\\Parameters.cs",
+              "RelativeToolTip": "Model\\Parameters.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABEAAABFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-27T05:06:15.888Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "MainForm.cs",
               "DocumentMoniker": "D:\\Microsoft Visual Studio\\Repository\\kompas3d_monitor\\Kompas3DMonitorApp\\MainForm.cs",
               "RelativeDocumentMoniker": "Kompas3DMonitorApp\\MainForm.cs",
               "ToolTip": "D:\\Microsoft Visual Studio\\Repository\\kompas3d_monitor\\Kompas3DMonitorApp\\MainForm.cs",
               "RelativeToolTip": "Kompas3DMonitorApp\\MainForm.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAKsAAAAAAAAAAADgvykAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-27T04:37:55.409Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "MainForm.cs [Design]",
               "DocumentMoniker": "D:\\Microsoft Visual Studio\\Repository\\kompas3d_monitor\\Kompas3DMonitorApp\\MainForm.cs",
               "RelativeDocumentMoniker": "Kompas3DMonitorApp\\MainForm.cs",
               "ToolTip": "D:\\Microsoft Visual Studio\\Repository\\kompas3d_monitor\\Kompas3DMonitorApp\\MainForm.cs [Design]",
               "RelativeToolTip": "Kompas3DMonitorApp\\MainForm.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-27T04:37:52.936Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2024-12-27T04:37:52.936Z"
             }
           ]
         }
