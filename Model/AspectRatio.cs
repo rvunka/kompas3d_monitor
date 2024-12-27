@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 namespace MonitorModel
 {
     //TODO:XML
+    /// <summary>
+    /// Определяет возможные соотношения сторон экрана монитора.
+    /// </summary>
     public enum AspectRatio
     {
         Custom,

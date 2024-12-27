@@ -15,6 +15,9 @@ using System.Runtime.CompilerServices;
 //TODO: RSDN
 namespace Kompas3DMonitorUI
 {
+    /// <summary>
+    /// Основная форма для интерфейса пользователя, позволяющая взаимодействовать с моделью монитора.
+    /// </summary>
     public partial class MainForm : Form
     {
         private Builder _builder;
@@ -37,6 +40,9 @@ namespace Kompas3DMonitorUI
             { BaseShape.Trapeze, "Трапеция" }
         };
 
+        /// <summary>
+        /// Инициализирует форму и настраивает элементы управления.
+        /// </summary>
         public MainForm()
         {
             InitializeComponent();
@@ -50,6 +56,9 @@ namespace Kompas3DMonitorUI
             //st.StressTesting();
         }
 
+        /// <summary>
+        /// Обновляет значения в текстовых полях в зависимости от текущих параметров.
+        /// </summary>
         private void UpdateTextBoxValues()
         {
             var parameterTypes = Enum.GetValues(typeof(ParameterType)).Cast<ParameterType>().ToArray();
@@ -66,10 +75,27 @@ namespace Kompas3DMonitorUI
 
                 if (textBox != null && _parameters.ParametersDict.ContainsKey(parameterType))
                 {
+                    // Обновляем текст в текстбоксе
                     textBox.Text = _parameters.ParametersDict[parameterType].Value.ToString();
+
+                    // Проверяем наличие ошибок в словаре и обновляем цвет фона
+                    if (_validationErrors.ContainsKey(textBox) && _validationErrors[textBox] == null)
+                    {
+                        // Если ошибки нет, устанавливаем белый цвет
+                        textBox.BackColor = Color.White;
+                    }
+                    else if (_validationErrors.ContainsKey(textBox) && _validationErrors[textBox] != null)
+                    {
+                        // Если ошибка есть, устанавливаем красный цвет
+                        textBox.BackColor = Color.Red;
+                    }
                 }
             }
         }
+
+        /// <summary>
+        /// Инициализирует элементы управления ComboBox для выбора соотношения сторон и формы основания.
+        /// </summary>
         private void InitializeComboBox()
         {
             comboBox1.DataSource = new BindingSource(aspectRatioDisplayValues, null);
@@ -81,6 +107,11 @@ namespace Kompas3DMonitorUI
             comboBox2.ValueMember = "Key";
         }
 
+        /// <summary>
+        /// Проверяет корректность введенных данных в текстовом поле и обновляет параметры модели.
+        /// </summary>
+        /// <param name="parameterType">Тип параметра для обновления.</param>
+        /// <param name="textBoxTemp">Текстовое поле для ввода значения.</param>
         private void MainValidate(ParameterType parameterType, ref TextBox textBoxTemp)
         {
             try
@@ -89,7 +120,6 @@ namespace Kompas3DMonitorUI
                 if (double.TryParse(textBoxTemp.Text, out value))
                 {
                     _parameters.AddValueToParameter(parameterType, value);
-                    textBoxTemp.BackColor = Color.White;
                     _validationErrors[textBoxTemp] = null; 
                 }
                 else
@@ -100,13 +130,16 @@ namespace Kompas3DMonitorUI
             catch (Exception ex)
             {
                 textBoxLog.Text += parameterType.ToString() + ": " + ex.Message + "\r\n";
-                textBoxTemp.BackColor = Color.Red;
                 _validationErrors[textBoxTemp] = ex; 
             }
 
             UpdateTextBoxValues();
         }
 
+        /// <summary>
+        /// Проверяет, все ли текстовые поля корректны.
+        /// </summary>
+        /// <returns>Возвращает <c>true</c>, если все текстовые поля корректны; иначе <c>false</c>.</returns>
         private bool AreAllTextBoxesValid()
         {
             foreach (var value in _validationErrors.Values)
@@ -119,6 +152,11 @@ namespace Kompas3DMonitorUI
             return true;
         }
 
+        /// <summary>
+        /// Обработчик события выхода из текстового поля. Выполняет валидацию значения.
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие.</param>
+        /// <param name="e">Аргументы события.</param>
         private void textBox_Leave(object sender, EventArgs e)
         {
             TextBox textBox = sender as TextBox;
@@ -178,6 +216,11 @@ namespace Kompas3DMonitorUI
             }
         }
 
+        /// <summary>
+        /// Обработчик события изменения выбранного соотношения сторон.
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие.</param>
+        /// <param name="e">Аргументы события.</param>
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -200,6 +243,11 @@ namespace Kompas3DMonitorUI
             UpdateTextBoxValues();        
         }
 
+        /// <summary>
+        /// Обработчик события изменения выбранной формы основания.
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие.</param>
+        /// <param name="e">Аргументы события.</param>
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBox2.SelectedItem is KeyValuePair<BaseShape, string> selectedItem)
@@ -235,6 +283,9 @@ namespace Kompas3DMonitorUI
             UpdateTextBoxValues();
         }
 
+        /// <summary>
+        /// Строит модель монитора с текущими параметрами.
+        /// </summary>
         private void BuildModel()
         {
             if (!AreAllTextBoxesValid())
@@ -247,47 +298,15 @@ namespace Kompas3DMonitorUI
             _builder.Build(_parameters);
         }
 
+        /// <summary>
+        /// Обработчик события нажатия кнопки "Построить модель".
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие.</param>
+        /// <param name="e">Аргументы события.</param>
         private void BuildButton_Click(object sender, EventArgs e)
         {
             BuildModel();
         }
-
-        private bool ValidateAllTextBoxes()
-        {
-            bool allValid = true;
-
-            foreach (ParameterType parameterType in Enum.GetValues(typeof(ParameterType)))
-            {
-                string textBoxName = $"textBox{(int)parameterType + 1}";
-                var textBox = groupBox1.Controls.OfType<TextBox>().FirstOrDefault(t => t.Name == textBoxName)
-                              ?? groupBox2.Controls.OfType<TextBox>().FirstOrDefault(t => t.Name == textBoxName);
-
-                if (textBox != null)
-                {
-                    try
-                    {
-                        double value;
-                        if (double.TryParse(textBox.Text, out value))
-                        {
-                            _parameters.AddValueToParameter(parameterType, value);
-                            textBox.BackColor = Color.White;
-                        }
-                        else
-                        {
-                            throw new FormatException($"Строка '{textBox.Text}' не может быть преобразована в тип double.");
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        textBoxLog.Text += parameterType.ToString() + ": " + ex.Message + "\r\n";
-                        textBox.BackColor = Color.Red;
-                        allValid = false;
-                    }
-                }
-            }
-
-            return allValid;
-        }    
     }
 
 

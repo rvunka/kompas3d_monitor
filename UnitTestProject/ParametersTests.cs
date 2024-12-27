@@ -23,7 +23,7 @@ namespace UnitTestProject
         }
 
         [TestMethod]
-        [ExpectedException(typeof(FormatException))]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void Validate_ScreenWidth_OutOfRange_ShouldThrowException()
         {
             _parameters.AddValueToParameter(ParameterType.ScreenWidth, 1500);  // Выше допустимого диапазона (50-1000)
@@ -57,7 +57,7 @@ namespace UnitTestProject
         }
 
         [TestMethod]
-        [ExpectedException(typeof(FormatException))]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void JointHeight_InvalidValue_ShouldThrowException()
         {
             _parameters.AddValueToParameter(ParameterType.JointHeight, 300);  // Превышает диапазон (20-200)

@@ -15,12 +15,21 @@ using MonitorModel;
 namespace MonitorBuilder
 {
     //TODO:XML
+    /// <summary>
+    /// Класс для построения различных частей монитора с использованием паттерна Builder.
+    /// </summary>
     public class Builder
     {
         //TODO:XML
+        /// <summary>
+        /// Обертка для взаимодействия с системой моделирования.
+        /// </summary>
         private Wrapper _wrapper;
 
         //TODO:XML
+        /// <summary>
+        /// Инициализирует новый экземпляр класса <see cref="Builder"/>.
+        /// </summary>
         public Builder()
         {
             _wrapper = new Wrapper();
@@ -92,7 +101,12 @@ namespace MonitorBuilder
             var sketchEdit = (ksDocument2D)definition.BeginEdit();
 
             //TODO: RSDN
-            var rectParam = _wrapper.CreateRectangleParam(-innerWidth / 2, (-innerHeight / 2) - standHeight - baseHeight, innerWidth, innerHeight);
+            double x = -innerWidth / 2;
+            double y = (-innerHeight / 2) - standHeight - baseHeight;
+            double width = innerWidth;
+            double height = innerHeight;
+
+            var rectParam = _wrapper.CreateRectangleParam(x, y, width, height);
             sketchEdit.ksRectangle(rectParam, 0);
 
             definition.EndEdit();
