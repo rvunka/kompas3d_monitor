@@ -164,7 +164,7 @@ namespace MonitorBuilder
 
             if (parameters.BaseShape == BaseShape.Circle)
             {
-                _wrapper.CreateCircle(0, 0, 0, z / 2, s, (short)Obj3dType.o3d_planeXOY);
+                _wrapper.CreateCircle(0, 0, 0, D / 2, s, (short)Obj3dType.o3d_planeXOY);
                 return;
             }
 

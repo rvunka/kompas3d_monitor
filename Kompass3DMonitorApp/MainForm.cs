@@ -13,7 +13,7 @@ using MonitorBuilder;
 using System.Runtime.CompilerServices;
 
 //TODO: RSDN
-namespace Kompass3DMonitor.UI
+namespace Kompass3DMonitorUI
 {
     public partial class MainForm : Form
     {
@@ -22,11 +22,18 @@ namespace Kompass3DMonitor.UI
 
         private Dictionary<AspectRatio, string> aspectRatioDisplayValues = new Dictionary<AspectRatio, string>
         {
-            { AspectRatio.Custom, "Custom" },
+            { AspectRatio.Custom, "Пользовательское" },
             { AspectRatio.FourThree, "4_3" },
             { AspectRatio.SixteenTen, "16_10" },
             { AspectRatio.SixteenNine, "16_9" },
             { AspectRatio.TwentyOneNine, "21_9" }
+        };
+
+        private Dictionary<BaseShape, string> baseShapeDisplayValues = new Dictionary<BaseShape, string>
+        {
+            { BaseShape.Rectangle, "Прямоугольник" },
+            { BaseShape.Circle, "Круг" },
+            { BaseShape.Trapeze, "Трапеция" }
         };
 
         public MainForm()
@@ -67,6 +74,10 @@ namespace Kompass3DMonitor.UI
             comboBox1.DataSource = new BindingSource(aspectRatioDisplayValues, null);
             comboBox1.DisplayMember = "Value";
             comboBox1.ValueMember = "Key";
+
+            comboBox2.DataSource = new BindingSource(baseShapeDisplayValues, null);
+            comboBox2.DisplayMember = "Value";
+            comboBox2.ValueMember = "Key";
         }
 
         private void MainValidate(ParameterType parameterType, ref TextBox textBoxTemp)
@@ -90,81 +101,64 @@ namespace Kompass3DMonitor.UI
 
             UpdateTextBoxValues();
         }
-        private void textBox1_Leave(object sender, EventArgs e)
-        {
-            MainValidate(ParameterType.ScreenWidth, ref textBox1);
-            MainValidate(ParameterType.ScreenHeight, ref textBox2);
-        }
 
-        private void textBox2_Leave(object sender, EventArgs e)
+        private void textBox_Leave(object sender, EventArgs e)
         {
-            MainValidate(ParameterType.ScreenHeight, ref textBox2);
-            MainValidate(ParameterType.ScreenWidth, ref textBox1);
-        }
+            TextBox textBox = sender as TextBox;
 
-        private void textBox3_Leave(object sender, EventArgs e)
-        {
-            MainValidate(ParameterType.ScreenThickness, ref textBox3);
-        }
-
-        private void textBox4_Leave(object sender, EventArgs e)
-        {
-            MainValidate(ParameterType.BorderHeight, ref textBox4);
-        }
-
-        private void textBox5_Leave(object sender, EventArgs e)
-        {
-            MainValidate(ParameterType.BorderWidth, ref textBox5);
-        }
-
-        private void textBox6_Leave(object sender, EventArgs e)
-        {
-            MainValidate(ParameterType.BorderDepth, ref textBox6);
-        }
-
-        private void textBox7_Leave(object sender, EventArgs e)
-        {
-            MainValidate(ParameterType.StandHeight, ref textBox7);
-        }
-
-        private void textBox8_Leave(object sender, EventArgs e)
-        {
-            MainValidate(ParameterType.StandWidth, ref textBox8);
-        }
-
-        private void textBox9_Leave(object sender, EventArgs e)
-        {
-            MainValidate(ParameterType.StandThickness, ref textBox9);
-        }
-
-        private void textBox10_Leave(object sender, EventArgs e)
-        {
-            MainValidate(ParameterType.BaseHeight, ref textBox10);
-        }
-
-        private void textBox11_Leave(object sender, EventArgs e)
-        {
-            MainValidate(ParameterType.BaseWidth, ref textBox11);
-        }
-
-        private void textBox12_Leave(object sender, EventArgs e)
-        {
-            MainValidate(ParameterType.BaseThickness, ref textBox12);
-        }
-
-        private void textBox13_Leave(object sender, EventArgs e)
-        {
-            MainValidate(ParameterType.JointHeight, ref textBox13);
-        }
-
-        private void textBox14_Leave(object sender, EventArgs e)
-        {
-            MainValidate(ParameterType.JointWidth, ref textBox14);
-        }
-
-        private void textBox15_Leave(object sender, EventArgs e)
-        {
-            MainValidate(ParameterType.JointLenght, ref textBox15);
+            if (textBox != null)
+            {
+                switch (textBox.Name)
+                {
+                    case "textBox1":
+                        MainValidate(ParameterType.ScreenWidth, ref textBox);
+                        MainValidate(ParameterType.ScreenHeight, ref textBox2); 
+                        break;
+                    case "textBox2":
+                        MainValidate(ParameterType.ScreenHeight, ref textBox);
+                        MainValidate(ParameterType.ScreenWidth, ref textBox1); 
+                        break;
+                    case "textBox3":
+                        MainValidate(ParameterType.ScreenThickness, ref textBox);
+                        break;
+                    case "textBox4":
+                        MainValidate(ParameterType.BorderHeight, ref textBox);
+                        break;
+                    case "textBox5":
+                        MainValidate(ParameterType.BorderWidth, ref textBox);
+                        break;
+                    case "textBox6":
+                        MainValidate(ParameterType.BorderDepth, ref textBox);
+                        break;
+                    case "textBox7":
+                        MainValidate(ParameterType.StandHeight, ref textBox);
+                        break;
+                    case "textBox8":
+                        MainValidate(ParameterType.StandWidth, ref textBox);
+                        break;
+                    case "textBox9":
+                        MainValidate(ParameterType.StandThickness, ref textBox);
+                        break;
+                    case "textBox10":
+                        MainValidate(ParameterType.BaseHeight, ref textBox);
+                        break;
+                    case "textBox11":
+                        MainValidate(ParameterType.BaseWidth, ref textBox);
+                        break;
+                    case "textBox12":
+                        MainValidate(ParameterType.BaseThickness, ref textBox);
+                        break;
+                    case "textBox13":
+                        MainValidate(ParameterType.JointHeight, ref textBox);
+                        break;
+                    case "textBox14":
+                        MainValidate(ParameterType.JointWidth, ref textBox);
+                        break;
+                    case "textBox15":
+                        MainValidate(ParameterType.JointLenght, ref textBox);
+                        break;
+                }
+            }
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -178,6 +172,41 @@ namespace Kompass3DMonitor.UI
             UpdateTextBoxValues();
             MainValidate(ParameterType.ScreenWidth, ref textBox1);
             MainValidate(ParameterType.ScreenHeight, ref textBox2);
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox2.SelectedItem is KeyValuePair<BaseShape, string> selectedItem)
+            {
+                _parameters.BaseShape = selectedItem.Key;
+
+                if (_parameters.BaseShape == BaseShape.Circle)
+                {
+                    label10.Text = "Радиус подставки";
+
+                    label9.Visible = false;
+                    label11.Visible = false;
+                    label21.Visible = false;
+                    label23.Visible = false;
+
+                    textBox10.Visible = false;
+                    textBox12.Visible = false;
+                }
+                else
+                {
+                    label10.Text = "Ширина подставки";
+
+                    label9.Visible = true;
+                    label11.Visible = true;
+                    label21.Visible = true;
+                    label23.Visible = true;
+
+                    textBox10.Visible = true;
+                    textBox12.Visible = true;
+                }
+            }
+
+            UpdateTextBoxValues();
         }
 
         private void BuildModel()
@@ -238,7 +267,7 @@ namespace Kompass3DMonitor.UI
             }
 
             return allValid;
-        }
+        }    
     }
 
 

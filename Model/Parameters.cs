@@ -104,14 +104,10 @@ namespace MonitorModel
             }
         }
 
-        public void SetBaseShape(BaseShape baseShape)
-        {
-
-        }
-
         public BaseShape BaseShape
         {
             get { return _baseShape; }
+            set { _baseShape = value; }
         }
 
     }
