@@ -123,7 +123,7 @@ namespace MonitorModel
         /// </summary>
         /// <param name="aspectRatio">Тип соотношения сторон.</param>
         /// <returns>Коэффициент соотношения сторон.</returns>
-        private double GetAspectRatioFactor(AspectRatio aspectRatio)
+        public double GetAspectRatioFactor(AspectRatio aspectRatio)
         {
             switch (aspectRatio)
             {
