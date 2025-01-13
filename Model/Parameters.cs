@@ -21,7 +21,7 @@ namespace MonitorModel
             { ParameterType.BorderHeight, new Parameter(5, 30, 10) },
             { ParameterType.BorderWidth, new Parameter(5, 30, 10) },
             { ParameterType.BorderDepth, new Parameter(0, 20, 5) },
-            { ParameterType.StandHeight, new Parameter(50, 200, 125) },
+            { ParameterType.StandHeight, new Parameter(50, 600, 125) },
             { ParameterType.StandWidth, new Parameter(30, 100, 40) },
             { ParameterType.StandThickness, new Parameter(10, 50, 10) },
             { ParameterType.BaseHeight, new Parameter(10, 150, 10) },

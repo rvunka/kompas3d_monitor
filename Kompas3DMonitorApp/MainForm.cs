@@ -52,8 +52,8 @@ namespace Kompas3DMonitorUI
             _builder = new Builder();
 
             // стресс тест
-            //StressTester st = new StressTester();
-            //st.StressTesting();
+            StressTester st = new StressTester();
+            st.StressTesting();
         }
 
         /// <summary>
@@ -101,6 +101,23 @@ namespace Kompas3DMonitorUI
             comboBoxShape.DataSource = new BindingSource(_baseShapeDisplayValues, null);
             comboBoxShape.DisplayMember = "Value";
             comboBoxShape.ValueMember = "Key";
+        }
+
+        /// <summary>
+        /// Фильтрует пользовательский ввод.
+        /// </summary>
+        private void TextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != '\b' && e.KeyChar != ',')
+            {
+                e.Handled = true; 
+            }
+
+            var textBox = sender as TextBox;
+            if (e.KeyChar == ',' && textBox.Text.Contains(','))
+            {
+                e.Handled = true;
+            }
         }
 
         /// <summary>

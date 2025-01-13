@@ -4,9 +4,15 @@ using System;
 
 namespace UnitTestProject
 {
+    /// <summary>
+    /// Тестовый класс для проверки функциональности класса Parameter.
+    /// </summary>
     [TestClass]
     public class ParameterTests
     {
+        /// <summary>
+        /// Проверяет, что конструктор корректно инициализирует объект с заданными начальными значениями.
+        /// </summary>
         [TestMethod]
         public void Constructor_ShouldSetInitialValuesCorrectly()
         {
@@ -21,6 +27,9 @@ namespace UnitTestProject
             Assert.AreEqual(maxValue, parameter.MaxValue);
         }
 
+        /// <summary>
+        /// Проверяет, что значение корректно устанавливается, если оно находится в допустимом диапазоне.
+        /// </summary>
         [TestMethod]
         public void Value_SetWithinRange_ShouldSetValueSuccessfully()
         {
@@ -29,6 +38,9 @@ namespace UnitTestProject
             Assert.AreEqual(75, parameter.Value);
         }
 
+        /// <summary>
+        /// Проверяет, что при попытке установить значение ниже минимального возникает исключение ArgumentOutOfRangeException.
+        /// </summary>
         [TestMethod]
         public void Value_SetBelowMinValue_ShouldThrowArgumentOutOfRangeException()
         {
@@ -41,6 +53,9 @@ namespace UnitTestProject
             Assert.IsTrue(exception.Message.Contains("должно быть между"));
         }
 
+        /// <summary>
+        /// Проверяет, что при попытке установить значение выше максимального возникает исключение ArgumentOutOfRangeException.
+        /// </summary>
         [TestMethod]
         public void Value_SetAboveMaxValue_ShouldThrowArgumentOutOfRangeException()
         {
@@ -53,6 +68,9 @@ namespace UnitTestProject
             Assert.IsTrue(exception.Message.Contains("должно быть между"));
         }
 
+        /// <summary>
+        /// Проверяет, что минимальное значение может быть успешно обновлено, если оно ниже текущего значения параметра.
+        /// </summary>
         [TestMethod]
         public void MinValue_SetBelowCurrentValue_ShouldUpdateMinValueSuccessfully()
         {
@@ -61,6 +79,9 @@ namespace UnitTestProject
             Assert.AreEqual(-10, parameter.MinValue);
         }
 
+        /// <summary>
+        /// Проверяет, что минимальное значение можно установить ниже текущего значения параметра.
+        /// </summary>
         [TestMethod]
         public void MinValue_SetBelowValue_ShouldSucceed()
         {
@@ -70,6 +91,9 @@ namespace UnitTestProject
             Assert.AreEqual(25, parameter.MinValue);
         }
 
+        /// <summary>
+        /// Проверяет, что максимальное значение может быть успешно обновлено, если оно выше текущего значения параметра.
+        /// </summary>
         [TestMethod]
         public void MaxValue_SetAboveValue_ShouldSucceed()
         {
@@ -79,6 +103,9 @@ namespace UnitTestProject
             Assert.AreEqual(150, parameter.MaxValue);
         }
 
+        /// <summary>
+        /// Проверяет, что максимальное значение может быть успешно обновлено, если оно больше текущего значения параметра.
+        /// </summary>
         [TestMethod]
         public void MaxValue_SetAboveCurrentValue_ShouldUpdateMaxValueSuccessfully()
         {
