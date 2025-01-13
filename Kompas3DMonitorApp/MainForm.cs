@@ -52,8 +52,8 @@ namespace Kompas3DMonitorUI
             _builder = new Builder();
 
             // стресс тест
-            StressTester st = new StressTester();
-            st.StressTesting();
+            //StressTester st = new StressTester();
+            //st.StressTesting();
         }
 
         /// <summary>
