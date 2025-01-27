@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace MonitorModel
 {
@@ -70,36 +66,30 @@ namespace MonitorModel
         /// <exception cref="KeyNotFoundException">Выбрасывается, если указанный параметр не найден.</exception>
         public void AddValueToParameter(ParameterType parameterType, double value)
         {
-            if (_parametersDict.ContainsKey(parameterType))
-            {
-                _parametersDict[parameterType].Value = value;
+            if (!_parametersDict.ContainsKey(parameterType))
+                throw new KeyNotFoundException("Parameter not found");
 
-                if (_aspectRatio != AspectRatio.Custom)
+            _parametersDict[parameterType].Value = value;
+
+            if (_aspectRatio == AspectRatio.Custom)
+                return;
+
+            try
+            {
+                switch (parameterType)
                 {
-                    // Проверка связи параметров ScreenWidth и ScreenHeight
-                    if (parameterType == ParameterType.ScreenWidth)
-                    {
-                        try
-                        {
-                            double heightValue = value * GetAspectRatioFactor(_aspectRatio);
-                            _parametersDict[ParameterType.ScreenHeight].Value = heightValue;
-                        }
-                        catch { }
-                    }
-                    else if (parameterType == ParameterType.ScreenHeight)
-                    {
-                        try
-                        {
-                            double widthValue = value / GetAspectRatioFactor(_aspectRatio);
-                            _parametersDict[ParameterType.ScreenWidth].Value = widthValue;
-                        }
-                        catch { }
-                    }
+                    case ParameterType.ScreenWidth:
+                        _parametersDict[ParameterType.ScreenHeight].Value = value * GetAspectRatioFactor(_aspectRatio);
+                        break;
+
+                    case ParameterType.ScreenHeight:
+                        _parametersDict[ParameterType.ScreenWidth].Value = value / GetAspectRatioFactor(_aspectRatio);
+                        break;
                 }
             }
-            else
+            catch
             {
-                throw new KeyNotFoundException("Parameter not found");
+                // Логируем или игнорируем исключение
             }
         }
 

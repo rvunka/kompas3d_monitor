@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 using Kompas6API5;
-using Kompas6Constants;
 using Kompas6Constants3D;
-using KompasAPI7;
 using KompasAPIWrapper;
 using MonitorModel;
 
@@ -60,6 +52,7 @@ namespace MonitorBuilder
             double standHeight = parameters.ParametersDict[ParameterType.StandHeight].Value;
             double baseHeight = parameters.ParametersDict[ParameterType.BaseHeight].Value;
 
+            //Центрирование объекта = 1/2
             double x = -L / 2;
             double y = -H / 2;
 
@@ -170,6 +163,7 @@ namespace MonitorBuilder
             double s = parameters.ParametersDict[ParameterType.BaseHeight].Value;
             double z = parameters.ParametersDict[ParameterType.BaseThickness].Value;
 
+            //Центрирование объекта = 1/2
             double x = -D / 2;
             double y = -z / 2;
 
@@ -198,6 +192,8 @@ namespace MonitorBuilder
                 sketch.Create();
 
                 var sketchEdit = (ksDocument2D)definition.BeginEdit();
+
+                // Наименьшая сторона трапеции = наибольшая сторона - 15 * 2
                 sketchEdit.ksLineSeg(x, y, x, y + z, 1);
                 sketchEdit.ksLineSeg(x, y + z, x + 15, y + z, 1);
                 sketchEdit.ksLineSeg(x + 15, y + z, x, y, 1);
