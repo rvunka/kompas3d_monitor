@@ -101,6 +101,7 @@ namespace MonitorBuilder
             var sketchEdit = (ksDocument2D)definition.BeginEdit();
 
             //TODO: RSDN
+            //Центрирование объекта = 1/2
             double x = -innerWidth / 2;
             double y = (-innerHeight / 2) - standHeight - baseHeight;
             double width = innerWidth;
@@ -134,6 +135,7 @@ namespace MonitorBuilder
             double standHeight = parameters.ParametersDict[ParameterType.StandHeight].Value;
             double baseHeight = parameters.ParametersDict[ParameterType.BaseHeight].Value;
 
+            //Центрирование объекта = 1/2
             double x = -j / 2;
             double y = -f / 2;
 
@@ -151,6 +153,7 @@ namespace MonitorBuilder
             double baseHeight = parameters.ParametersDict[ParameterType.BaseHeight].Value;
             double b = parameters.ParametersDict[ParameterType.JointLenght].Value;
 
+            //Центрирование объекта = 1/2
             double x = -standWidth / 2;
             double y = -standThickness / 2;
             double offsetZ = -baseHeight / 2;
