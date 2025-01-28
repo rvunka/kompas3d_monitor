@@ -6,14 +6,16 @@ using Kompas6Constants3D;
 
 namespace KompasAPIWrapper
 {
-    //TODO: RSDN
     /// <summary>
     /// Обертка для работы с API Kompas 3D.
     /// Предоставляет методы для создания и модификации 3D-объектов в Kompas.
     /// </summary>
     public class Wrapper
     {
+        //TODO:XML
         private KompasObject _kompas;
+
+        //TODO:XML
         private ksDocument3D _doc3D;
 
         /// <summary>
@@ -58,6 +60,7 @@ namespace KompasAPIWrapper
         /// <param name="width">Ширина коробки.</param>
         /// <param name="height">Высота коробки.</param>
         /// <param name="depth">Глубина коробки.</param>
+        /// //TODO: RSDN
         /// <param name="planeType">Тип плоскости для размещения коробки (по умолчанию <see cref="Obj3dType.o3d_planeXOZ"/>).</param>
         public void CreateBox(
             double offset,
@@ -81,6 +84,7 @@ namespace KompasAPIWrapper
             definition.SetPlane(part.GetDefaultEntity(planeType));
             sketch.Create();
 
+            //TODO: RSDN
             var rectParam = (RectangleParam)_kompas.GetParamStruct((short)StructType2DEnum.ko_RectangleParam);
             rectParam.x = x;
             rectParam.y = y;
@@ -111,6 +115,7 @@ namespace KompasAPIWrapper
         /// <param name="y">Координата Y центра круга.</param>
         /// <param name="radius">Радиус круга.</param>
         /// <param name="depth">Глубина выдавливания.</param>
+        /// //TODO: RSDN
         /// <param name="planeType">Тип плоскости для размещения круга (по умолчанию <see cref="Obj3dType.o3d_planeXOZ"/>).</param>
         public void CreateCircle(
             double offset, 
@@ -196,6 +201,7 @@ namespace KompasAPIWrapper
         /// </summary>
         /// <param name="sketch">Эскиз, по которому будет выполнено вырезание.</param>
         /// <param name="depth">Глубина вырезания.</param>
+        /// //TODO: RSDN
         /// <param name="reverse">Направление вырезания: если <c>true</c>, вырезание будет выполнено в обратном направлении.</param>
         public void CutExtrusion(ksEntity sketch, double depth, bool reverse = false)
         {

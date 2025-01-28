@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace MonitorModel
 {
-    //TODO:XML
     /// <summary>
-    /// Представляет параметр с минимальным и максимальным значением, а также с текущим значением, проверяющим корректность в заданном диапазоне.
+    /// Представляет параметр с минимальным и максимальным значением, 
+    /// а также с текущим значением, проверяющим корректность в заданном диапазоне.
     /// </summary>
     public class Parameter
     {
+        //TODO:XML
         private double _value;
         private double _minValue;
         private double _maxValue;
@@ -25,7 +26,6 @@ namespace MonitorModel
         public double Value
         {
             get => _value;
-            //TODO: validation?
             set
             {
                 _value = value;
@@ -39,7 +39,6 @@ namespace MonitorModel
         public double MinValue
         {
             get => _minValue;
-            //TODO: validation?
             set
             {
                 _minValue = value;
@@ -53,7 +52,6 @@ namespace MonitorModel
         public double MaxValue
         {
             get => _maxValue;
-            //TODO: validation?
             set
             {
                 _maxValue = value;

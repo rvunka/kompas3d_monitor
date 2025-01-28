@@ -6,19 +6,16 @@ using MonitorModel;
 
 namespace MonitorBuilder
 {
-    //TODO:XML
     /// <summary>
     /// Класс для построения различных частей монитора с использованием паттерна Builder.
     /// </summary>
     public class Builder
     {
-        //TODO:XML
         /// <summary>
         /// Обертка для взаимодействия с системой моделирования.
         /// </summary>
         private Wrapper _wrapper;
 
-        //TODO:XML
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="Builder"/>.
         /// </summary>
@@ -92,8 +89,7 @@ namespace MonitorBuilder
             sketch.Create();
 
             var sketchEdit = (ksDocument2D)definition.BeginEdit();
-
-            //TODO: RSDN
+            
             //Центрирование объекта = 1/2
             double x = -innerWidth / 2;
             double y = (-innerHeight / 2) - standHeight - baseHeight;
@@ -151,6 +147,7 @@ namespace MonitorBuilder
             double y = -standThickness / 2;
             double offsetZ = -baseHeight / 2;
 
+            //TODO: RSDN
             _wrapper.CreateBox(standThickness + b, x, y + offsetZ, standWidth, -standHeight, standThickness);
         }
 

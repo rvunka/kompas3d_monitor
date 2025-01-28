@@ -2,14 +2,14 @@
 
 namespace MonitorModel
 {
-    //TODO:XML
     /// <summary>
     /// Класс, представляющий параметры для модели монитора.
     /// </summary>
     public class Parameters
     {
-        //TODO: refactor
-        private Dictionary<ParameterType, Parameter> _parametersDict = new Dictionary<ParameterType, Parameter>
+        //TODO:XML
+        private Dictionary<ParameterType, Parameter> _parametersDict = 
+            new Dictionary<ParameterType, Parameter>
         {
             { ParameterType.ScreenWidth, new Parameter(50, 1000, 200) },
             { ParameterType.ScreenHeight, new Parameter(50, 1000, 200) },
@@ -66,13 +66,13 @@ namespace MonitorModel
         /// <exception cref="KeyNotFoundException">Выбрасывается, если указанный параметр не найден.</exception>
         public void AddValueToParameter(ParameterType parameterType, double value)
         {
+            //TODO: RSDN
             if (!_parametersDict.ContainsKey(parameterType))
                 throw new KeyNotFoundException("Parameter not found");
 
             _parametersDict[parameterType].Value = value;
 
-            if (_aspectRatio == AspectRatio.Custom)
-                return;
+            if (_aspectRatio == AspectRatio.Custom) return;
 
             try
             {
@@ -89,6 +89,7 @@ namespace MonitorModel
             }
             catch
             {
+                //TODO: redo
                 // Логируем или игнорируем исключение
             }
         }
@@ -129,6 +130,8 @@ namespace MonitorModel
                     return 1;
             }
         }
+
+        //TODO: autoproperties
 
         /// <summary>
         /// Получает или устанавливает форму основания монитора.
