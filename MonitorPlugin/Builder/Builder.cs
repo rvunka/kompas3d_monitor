@@ -146,9 +146,10 @@ namespace MonitorBuilder
             double x = -standWidth / 2;
             double y = -standThickness / 2;
             double offsetZ = -baseHeight / 2;
+            double offsetX = standThickness + b;
 
             //TODO: RSDN
-            _wrapper.CreateBox(standThickness + b, x, y + offsetZ, standWidth, -standHeight, standThickness);
+            _wrapper.CreateBox(offsetX, x, y + offsetZ, standWidth, -standHeight, standThickness);
         }
 
         /// <summary>

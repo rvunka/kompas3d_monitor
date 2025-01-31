@@ -13,8 +13,19 @@ namespace MonitorModel
     public class Parameter
     {
         //TODO:XML
+        /// <summary>
+        /// Текущее значение параметра.
+        /// </summary>
         private double _value;
+
+        /// <summary>
+        /// Минимально допустимое значение параметра.
+        /// </summary>
         private double _minValue;
+
+        /// <summary>
+        /// Максимально допустимое значение параметра.
+        /// </summary>
         private double _maxValue;
 
         /// <summary>

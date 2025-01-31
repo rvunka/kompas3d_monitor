@@ -13,9 +13,15 @@ namespace KompasAPIWrapper
     public class Wrapper
     {
         //TODO:XML
+        /// <summary>
+        /// Объект Kompas-3D, используемый для взаимодействия с API.
+        /// </summary>
         private KompasObject _kompas;
 
         //TODO:XML
+        /// <summary>
+        /// 3D-документ, с которым ведётся работа в Kompas-3D.
+        /// </summary>
         private ksDocument3D _doc3D;
 
         /// <summary>
@@ -61,15 +67,9 @@ namespace KompasAPIWrapper
         /// <param name="height">Высота коробки.</param>
         /// <param name="depth">Глубина коробки.</param>
         /// //TODO: RSDN
-        /// <param name="planeType">Тип плоскости для размещения коробки (по умолчанию <see cref="Obj3dType.o3d_planeXOZ"/>).</param>
-        public void CreateBox(
-            double offset,
-            double x,
-            double y,
-            double width,
-            double height,
-            double depth,
-            short planeType = (short)Obj3dType.o3d_planeXOZ)
+        /// <param name="planeType">Тип плоскости для размещения коробки.</param>
+        public void CreateBox(double offset, double x, double y, double width, 
+            double height, double depth, short planeType = (short)Obj3dType.o3d_planeXOZ)
         {
             if (_doc3D == null)
             {
@@ -85,7 +85,7 @@ namespace KompasAPIWrapper
             sketch.Create();
 
             //TODO: RSDN
-            var rectParam = (RectangleParam)_kompas.GetParamStruct((short)StructType2DEnum.ko_RectangleParam);
+            var rectParam = _kompas.GetParamStruct((short)StructType2DEnum.ko_RectangleParam);
             rectParam.x = x;
             rectParam.y = y;
             rectParam.width = width;
@@ -116,7 +116,7 @@ namespace KompasAPIWrapper
         /// <param name="radius">Радиус круга.</param>
         /// <param name="depth">Глубина выдавливания.</param>
         /// //TODO: RSDN
-        /// <param name="planeType">Тип плоскости для размещения круга (по умолчанию <see cref="Obj3dType.o3d_planeXOZ"/>).</param>
+        /// <param name="planeType">Тип плоскости для размещения круга.</param>
         public void CreateCircle(
             double offset, 
             double x, 
@@ -138,7 +138,7 @@ namespace KompasAPIWrapper
             definition.SetPlane(part.GetDefaultEntity(planeType));
             sketch.Create();
 
-            var circleParam = (CircleParam)_kompas.GetParamStruct((short)StructType2DEnum.ko_CircleParam);
+            var circleParam = _kompas.GetParamStruct((short)StructType2DEnum.ko_CircleParam);
             circleParam.xc = x;
             circleParam.yc = y;
             circleParam.rad = radius;
@@ -202,7 +202,7 @@ namespace KompasAPIWrapper
         /// <param name="sketch">Эскиз, по которому будет выполнено вырезание.</param>
         /// <param name="depth">Глубина вырезания.</param>
         /// //TODO: RSDN
-        /// <param name="reverse">Направление вырезания: если <c>true</c>, вырезание будет выполнено в обратном направлении.</param>
+        /// <param name="reverse">Направление вырезания.</param>
         public void CutExtrusion(ksEntity sketch, double depth, bool reverse = false)
         {
             if (_doc3D == null) return;
@@ -284,7 +284,7 @@ namespace KompasAPIWrapper
         /// <returns>Объект <see cref="RectangleParam"/> с заданными параметрами.</returns>
         public RectangleParam CreateRectangleParam(double x, double y, double width, double height)
         {
-            var rectParam = (RectangleParam)_kompas.GetParamStruct((short)StructType2DEnum.ko_RectangleParam);
+            var rectParam = _kompas.GetParamStruct((short)StructType2DEnum.ko_RectangleParam);
             rectParam.x = x;
             rectParam.y = y;
             rectParam.width = width;

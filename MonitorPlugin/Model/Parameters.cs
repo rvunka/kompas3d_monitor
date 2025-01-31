@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace MonitorModel
 {
@@ -8,6 +9,9 @@ namespace MonitorModel
     public class Parameters
     {
         //TODO:XML
+        /// <summary>
+        /// Словарь параметров монитора с их допустимыми значениями.
+        /// </summary>
         private Dictionary<ParameterType, Parameter> _parametersDict = 
             new Dictionary<ParameterType, Parameter>
         {
@@ -27,7 +31,15 @@ namespace MonitorModel
             { ParameterType.JointWidth, new Parameter(20, 200, 60) },
             { ParameterType.JointLenght, new Parameter(0, 150, 15) }
         };
+
+        /// <summary>
+        /// Соотношение сторон экрана.
+        /// </summary>
         private AspectRatio _aspectRatio;
+
+        /// <summary>
+        /// Форма подставки.
+        /// </summary>
         private BaseShape _baseShape;
 
         /// <summary>
@@ -68,7 +80,9 @@ namespace MonitorModel
         {
             //TODO: RSDN
             if (!_parametersDict.ContainsKey(parameterType))
+            {
                 throw new KeyNotFoundException("Parameter not found");
+            }               
 
             _parametersDict[parameterType].Value = value;
 
@@ -87,10 +101,10 @@ namespace MonitorModel
                         break;
                 }
             }
-            catch
+            catch (Exception ex) when (ex is ArgumentOutOfRangeException)
             {
                 //TODO: redo
-                // Логируем или игнорируем исключение
+                throw new InvalidOperationException($"Ошибка при пересчете зависимого параметра.");
             }
         }
 
@@ -136,11 +150,7 @@ namespace MonitorModel
         /// <summary>
         /// Получает или устанавливает форму основания монитора.
         /// </summary>
-        public BaseShape BaseShape
-        {
-            get { return _baseShape; }
-            set { _baseShape = value; }
-        }
+        public BaseShape BaseShape { get; set; }
 
     }
 }

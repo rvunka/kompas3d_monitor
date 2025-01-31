@@ -16,10 +16,24 @@ namespace Kompas3DMonitorUI
     /// </summary>
     public partial class MainForm : Form
     {
+        /// <summary>
+        /// Объект, отвечающий за построение модели.
+        /// </summary>
         private Builder _builder;
+
+        /// <summary>
+        /// Параметры монитора, используемые для построения.
+        /// </summary>
         private Parameters _parameters = new Parameters();
+
+        /// <summary>
+        /// Словарь ошибок валидации ввода, связанных с текстовыми полями.
+        /// </summary>
         private Dictionary<TextBox, Exception> _validationErrors = new Dictionary<TextBox, Exception>();
 
+        /// <summary>
+        /// Отображаемые значения соотношений сторон экрана.
+        /// </summary>
         private Dictionary<AspectRatio, string> _aspectRatioDisplayValues = new Dictionary<AspectRatio, string>
         {
             { AspectRatio.Custom, "Пользовательское" },
@@ -29,6 +43,9 @@ namespace Kompas3DMonitorUI
             { AspectRatio.TwentyOneNine, "21_9" }
         };
 
+        /// <summary>
+        /// Отображаемые значения форм подставки.
+        /// </summary>
         private Dictionary<BaseShape, string> _baseShapeDisplayValues = new Dictionary<BaseShape, string>
         {
             { BaseShape.Rectangle, "Прямоугольник" },
