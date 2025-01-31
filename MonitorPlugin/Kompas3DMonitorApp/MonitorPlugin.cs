@@ -185,7 +185,6 @@ namespace Kompas3DMonitorUI
         private void textBox_Leave(object sender, EventArgs e)
         {
             TextBox textBox = sender as TextBox;
-
             if (textBox != null)
             {
                 switch (textBox.Name)

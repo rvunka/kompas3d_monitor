@@ -12,13 +12,11 @@ namespace KompasAPIWrapper
     /// </summary>
     public class Wrapper
     {
-        //TODO:XML
         /// <summary>
         /// Объект Kompas-3D, используемый для взаимодействия с API.
         /// </summary>
         private KompasObject _kompas;
 
-        //TODO:XML
         /// <summary>
         /// 3D-документ, с которым ведётся работа в Kompas-3D.
         /// </summary>
@@ -66,7 +64,6 @@ namespace KompasAPIWrapper
         /// <param name="width">Ширина коробки.</param>
         /// <param name="height">Высота коробки.</param>
         /// <param name="depth">Глубина коробки.</param>
-        /// //TODO: RSDN
         /// <param name="planeType">Тип плоскости для размещения коробки.</param>
         public void CreateBox(double offset, double x, double y, double width, 
             double height, double depth, short planeType = (short)Obj3dType.o3d_planeXOZ)
@@ -84,8 +81,8 @@ namespace KompasAPIWrapper
             definition.SetPlane(part.GetDefaultEntity(planeType));
             sketch.Create();
 
-            //TODO: RSDN
-            var rectParam = _kompas.GetParamStruct((short)StructType2DEnum.ko_RectangleParam);
+            var rectParam = _kompas.GetParamStruct(
+                (short)StructType2DEnum.ko_RectangleParam);
             rectParam.x = x;
             rectParam.y = y;
             rectParam.width = width;
@@ -115,7 +112,6 @@ namespace KompasAPIWrapper
         /// <param name="y">Координата Y центра круга.</param>
         /// <param name="radius">Радиус круга.</param>
         /// <param name="depth">Глубина выдавливания.</param>
-        /// //TODO: RSDN
         /// <param name="planeType">Тип плоскости для размещения круга.</param>
         public void CreateCircle(
             double offset, 
@@ -201,7 +197,6 @@ namespace KompasAPIWrapper
         /// </summary>
         /// <param name="sketch">Эскиз, по которому будет выполнено вырезание.</param>
         /// <param name="depth">Глубина вырезания.</param>
-        /// //TODO: RSDN
         /// <param name="reverse">Направление вырезания.</param>
         public void CutExtrusion(ksEntity sketch, double depth, bool reverse = false)
         {
