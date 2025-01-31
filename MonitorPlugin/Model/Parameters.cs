@@ -76,6 +76,7 @@ namespace MonitorModel
         /// <param name="parameterType">Тип параметра, для которого устанавливается новое значение.</param>
         /// <param name="value">Новое значение параметра.</param>
         /// <exception cref="KeyNotFoundException">Выбрасывается, если указанный параметр не найден.</exception>
+        /// <exception cref="InvalidOperationException">Выбрасывается, если ошибка в зависимом параметре.</exception>
         public void AddValueToParameter(ParameterType parameterType, double value)
         {
             //TODO: RSDN

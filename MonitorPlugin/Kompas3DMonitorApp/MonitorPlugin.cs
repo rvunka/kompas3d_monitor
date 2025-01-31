@@ -8,13 +8,12 @@ using Perfomance;
 using MonitorModel;
 using MonitorBuilder;
 
-//TODO: RSDN
 namespace Kompas3DMonitorUI
 {
     /// <summary>
     /// Основная форма для интерфейса пользователя, позволяющая взаимодействовать с моделью монитора.
     /// </summary>
-    public partial class MainForm : Form
+    public partial class MonitorPlugin : Form
     {
         /// <summary>
         /// Объект, отвечающий за построение модели.
@@ -56,7 +55,7 @@ namespace Kompas3DMonitorUI
         /// <summary>
         /// Инициализирует форму и настраивает элементы управления.
         /// </summary>
-        public MainForm()
+        public MonitorPlugin()
         {
             InitializeComponent();
             UpdateTextBoxValues();

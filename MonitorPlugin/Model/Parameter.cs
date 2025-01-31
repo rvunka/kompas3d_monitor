@@ -31,7 +31,7 @@ namespace MonitorModel
         /// <summary>
         /// Текущее значение параметра.
         /// </summary>
-        /// <exception cref="FormatException">
+        /// <exception cref="ArgumentOutOfRangeException">
         /// Выбрасывается, если значение выходит за пределы <see cref="MinValue"/> и <see cref="MaxValue"/>.
         /// </exception>
         public double Value
@@ -76,8 +76,8 @@ namespace MonitorModel
         /// <param name="minValue">Минимальное значение параметра.</param>
         /// <param name="maxValue">Максимальное значение параметра.</param>
         /// <param name="initialValue">Начальное значение параметра.</param>
-        /// <exception cref="FormatException">
-        /// Выбрасывается, если начальное значение выходит за пределы <paramref name="minValue"/> и <paramref name="maxValue"/>.
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Выбрасывается, если значение выходит за пределы <paramref name="minValue"/> и <paramref name="maxValue"/>.
         /// </exception>
         public Parameter(double minValue, double maxValue, double initialValue)
         {
@@ -87,7 +87,7 @@ namespace MonitorModel
         }
 
         /// <summary>
-        /// Проверяет, что текущее значение находится в пределах диапазона от <see cref="MinValue"/> до <see cref="MaxValue"/>.
+        /// Проверяет, что значение находится в пределах диапазона от <see cref="MinValue"/> до <see cref="MaxValue"/>.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">
         /// Выбрасывается, если значение выходит за пределы <see cref="MinValue"/> и <see cref="MaxValue"/>.

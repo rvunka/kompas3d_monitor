@@ -1,6 +1,6 @@
 ﻿namespace Kompas3DMonitorUI
 {
-    partial class MainForm
+    partial class MonitorPlugin
     {
         /// <summary>
         /// Обязательная переменная конструктора.
